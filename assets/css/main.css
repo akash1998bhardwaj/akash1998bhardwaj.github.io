@@ -4823,8 +4823,8 @@ header.scrolled::before {
         max-width: 1200px;
         margin: 0 auto;
     }
-    .hero-title-solid, .hero-title-outline {
-        font-size: 13vw;
+    .hero-title {
+        font-size: 11vw;
     }
 }
 
@@ -4836,8 +4836,8 @@ header.scrolled::before {
         font-size: 14vw;
         letter-spacing: -4px;
     }
-    .hero-title-solid, .hero-title-outline {
-        font-size: 15vw;
+    .hero-title {
+        font-size: 11vw;
         letter-spacing: -2px;
     }
     .techstack-grid {
@@ -4903,8 +4903,8 @@ header.scrolled::before {
     .section-title {
         font-size: 50px;
     }
-    .hero-title-solid, .hero-title-outline {
-        font-size: 16vw;
+    .hero-title {
+        font-size: 12vw;
     }
 }
 
@@ -4984,8 +4984,8 @@ header.scrolled::before {
     }
     
     /* Hero Adjustments */
-    .hero-title-solid, .hero-title-outline {
-        font-size: 18vw;
+    .hero-title {
+        font-size: 12vw;
     }
     .hero-cube-container {
         transform: scale(0.7);
@@ -5038,8 +5038,8 @@ header.scrolled::before {
         font-size: 13px;
         margin-bottom: 16px;
     }
-    .hero-title-solid, .hero-title-outline {
-        font-size: 20vw;
+    .hero-title {
+        font-size: 12vw;
     }
     
     .process-card {
@@ -5074,8 +5074,8 @@ header.scrolled::before {
     .section-title {
         font-size: 28px;
     }
-    .hero-title-solid, .hero-title-outline {
-        font-size: 22vw;
+    .hero-title {
+        font-size: 12vw;
     }
     .hero-cube-container {
         transform: scale(0.6);
