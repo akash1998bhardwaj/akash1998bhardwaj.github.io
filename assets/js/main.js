@@ -592,14 +592,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 9. Contact Form — AJAX Submit + Toast Notification
+    // 9. Contact Form — EmailJS Submit + Toast Notification
+    //    Works on GitHub Pages (no PHP server needed)
     // ----------------------------------------------------
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
 
+        // ── EmailJS Configuration ─────────────────────────
+        // Replace these with your actual EmailJS credentials
+        // Get them from: https://dashboard.emailjs.com
+        const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account → API Keys
+        const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services tab
+        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates tab
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
         // ── Toast helper ──────────────────────────────────
         function showToast(message, isSuccess) {
-            // Remove any existing toast
             document.querySelectorAll('.portfolio-toast').forEach(t => t.remove());
 
             const toast = document.createElement('div');
@@ -668,8 +678,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4500);
         }
 
-        // ── Submit handler (jQuery $.ajax) ───────────────
-        $(contactForm).on('submit', function (e) {
+        // ── Submit handler (EmailJS) ──────────────────────
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const submitBtn = contactForm.querySelector('#contact-submit-btn');
@@ -681,35 +691,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = '0.7';
             }
-            if (btnSpan) btnSpan.textContent = 'Sending....';
+            if (btnSpan) btnSpan.textContent = 'Sending...';
 
-            $.ajax({
-                type: 'POST',
-                url: 'php/contact-form.php',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.success) {
-                        showToast('Message Sent Successfully!', true);
-                        contactForm.reset();
-                    } else {
-                        showToast(data.message || 'Something went wrong. Please try again.', false);
-                    }
-                },
-                error: function (xhr, status, err) {
-                    console.error('[Contact Form] AJAX error:', status, err);
-                    console.error('[Contact Form] Response:', xhr.responseText);
-                    showToast('Network error. Please try again later.', false);
-                },
-                complete: function () {
-                    // Restore button state
+            // Build template params from form fields
+            const templateParams = {
+                from_name:    contactForm.querySelector('[name="name"]')?.value || '',
+                from_email:   contactForm.querySelector('[name="email"]')?.value || '',
+                project_type: contactForm.querySelector('[name="project_type"]')?.value || 'General Inquiry',
+                message:      contactForm.querySelector('[name="message"]')?.value || '',
+                reply_to:     contactForm.querySelector('[name="email"]')?.value || ''
+            };
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                .then(function () {
+                    showToast('Message Sent Successfully!', true);
+                    contactForm.reset();
+                })
+                .catch(function (err) {
+                    console.error('[EmailJS Error]', err);
+                    showToast('Failed to send. Please try again.', false);
+                })
+                .finally(function () {
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.style.opacity = '1';
                     }
                     if (btnSpan) btnSpan.textContent = originalTxt;
-                }
-            });
+                });
         });
     }
 
