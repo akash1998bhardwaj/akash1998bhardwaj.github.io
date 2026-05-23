@@ -592,21 +592,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 9. Contact Form — EmailJS Submit + Toast Notification
-    //    Works on GitHub Pages (no PHP server needed)
+    // 9. Contact Form — jQuery $.ajax + Toast Notification
     // ----------------------------------------------------
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-
-        // ── EmailJS Configuration ─────────────────────────
-        // Replace these with your actual EmailJS credentials
-        // Get them from: https://dashboard.emailjs.com
-        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';   // Account → API Keys
-        const EMAILJS_SERVICE_ID = 'service_68ur0nw';   // Email Services tab
-        const EMAILJS_TEMPLATE_ID = 'template_bc5gvol';  // Email Templates tab
-
-        // Initialize EmailJS
-        emailjs.init(EMAILJS_PUBLIC_KEY);
 
         // ── Toast helper ──────────────────────────────────
         function showToast(message, isSuccess) {
@@ -678,8 +667,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4500);
         }
 
-        // ── Submit handler (EmailJS) ──────────────────────
-        contactForm.addEventListener('submit', function (e) {
+        // ── Submit handler (jQuery $.ajax) ───────────────
+        $(contactForm).on('submit', function (e) {
             e.preventDefault();
 
             const submitBtn = contactForm.querySelector('#contact-submit-btn');
@@ -693,33 +682,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (btnSpan) btnSpan.textContent = 'Sending...';
 
-            // Build template params from form fields
-            const now = new Date();
-            const templateParams = {
-                from_name: contactForm.querySelector('[name="name"]')?.value || '',
-                from_email: contactForm.querySelector('[name="email"]')?.value || '',
-                project_type: contactForm.querySelector('[name="project_type"]')?.value || 'General Inquiry',
-                message: contactForm.querySelector('[name="message"]')?.value || '',
-                reply_to: contactForm.querySelector('[name="email"]')?.value || '',
-                time: now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }) + ' IST'
-            };
-
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                .then(function () {
-                    showToast('Message Sent Successfully!', true);
-                    contactForm.reset();
-                })
-                .catch(function (err) {
-                    console.error('[EmailJS Error]', err);
-                    showToast('Failed to send. Please try again.', false);
-                })
-                .finally(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'php/contact-form.php',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        showToast('Message Sent Successfully!', true);
+                        contactForm.reset();
+                    } else {
+                        showToast(data.message || 'Something went wrong. Please try again.', false);
+                    }
+                },
+                error: function (xhr, status, err) {
+                    console.error('[Contact Form] AJAX error:', status, err);
+                    console.error('[Contact Form] Response:', xhr.responseText);
+                    showToast('Network error. Please try again later.', false);
+                },
+                complete: function () {
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.style.opacity = '1';
                     }
                     if (btnSpan) btnSpan.textContent = originalTxt;
-                });
+                }
+            });
         });
     }
 
