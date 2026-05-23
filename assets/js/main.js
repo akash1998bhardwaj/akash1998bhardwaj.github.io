@@ -280,12 +280,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Navigation Overlay & Scroll Header Trigger
     // ----------------------------------------------------
     let menuThreeInitialized = false;
-    let startMenuThreeAnimation = () => {};
+    let startMenuThreeAnimation = () => { };
 
     menuToggle.addEventListener('click', () => {
         header.classList.toggle('menu-active');
         const isActive = menuOverlay.classList.toggle('active');
-        
+
         if (isActive) {
             if (!menuThreeInitialized) {
                 initMenuThreeJS();
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
 
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * 8; // max 8deg vertical rotation
                 const rotateY = -((x - centerX) / centerX) * 8; // max 8deg horizontal rotation
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
             });
 
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const scrollLeftPos = processTrack.scrollLeft;
                 const maxScrollLeft = processTrack.scrollWidth - processTrack.clientWidth;
                 const progress = maxScrollLeft > 0 ? (scrollLeftPos / maxScrollLeft) * 100 : 0;
-                
+
                 progressBar.style.width = `${progress}%`;
                 progressBar.style.height = '100%';
             } else {
@@ -486,13 +486,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const rect = section.getBoundingClientRect();
                     const sectionHeight = rect.height;
                     const viewHeight = window.innerHeight;
-                    
+
                     const start = viewHeight * 0.8;
                     const end = viewHeight * 0.2;
                     const total = sectionHeight - (start - end);
                     const current = start - rect.top;
                     const progressPercent = Math.max(0, Math.min(100, (current / total) * 100));
-                    
+
                     progressBar.style.height = `${progressPercent}%`;
                     progressBar.style.width = '100%';
                 }
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         processTrack.addEventListener('scroll', updateProcessProgress);
         window.addEventListener('scroll', updateProcessProgress, { passive: true });
         window.addEventListener('resize', updateProcessProgress);
-        
+
         updateProcessProgress();
     }
 
@@ -605,10 +605,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const toast = document.createElement('div');
             toast.className = 'portfolio-toast';
 
-            const bgColor      = isSuccess ? 'var(--accent-primary)' : '#ff4d6d';
-            const shadowColor  = isSuccess ? 'rgba(0,255,170,0.45)' : 'rgba(255,77,109,0.45)';
-            const textColor    = isSuccess ? 'var(--bg-color)' : '#ffffff';
-            const icon         = isSuccess ? '✓' : '✕';
+            const bgColor = isSuccess ? 'var(--accent-primary)' : '#ff4d6d';
+            const shadowColor = isSuccess ? 'rgba(0,255,170,0.45)' : 'rgba(255,77,109,0.45)';
+            const textColor = isSuccess ? 'var(--bg-color)' : '#ffffff';
+            const icon = isSuccess ? '✓' : '✕';
 
             toast.style.cssText = `
                 position: fixed;
@@ -668,12 +668,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4500);
         }
 
-        // ── Submit handler ────────────────────────────────
-        contactForm.addEventListener('submit', async (e) => {
+        // ── Submit handler (jQuery $.ajax) ───────────────
+        $(contactForm).on('submit', function (e) {
             e.preventDefault();
 
-            const submitBtn  = contactForm.querySelector('#contact-submit-btn');
-            const btnSpan    = submitBtn ? submitBtn.querySelector('span') : null;
+            const submitBtn = contactForm.querySelector('#contact-submit-btn');
+            const btnSpan = submitBtn ? submitBtn.querySelector('span') : null;
             const originalTxt = btnSpan ? btnSpan.textContent : 'Send Message';
 
             // Loading state
@@ -683,43 +683,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (btnSpan) btnSpan.textContent = 'Sending…';
 
-            try {
-                const formData = new FormData(contactForm);
-
-                const response = await fetch('php/contact-form.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                // Read raw text first so we can debug if JSON parse fails
-                const rawText = await response.text();
-
-                let data;
-                try {
-                    data = JSON.parse(rawText);
-                } catch (_) {
-                    // Log raw server response to console for easy debugging
-                    console.error('[Contact Form] Server response was not valid JSON:');
-                    console.error(rawText);
-                    throw new Error('Server error. Please try again later.');
+            $.ajax({
+                type: 'POST',
+                url: 'php/contact-form.php',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        showToast('Message Sent Successfully!', true);
+                        contactForm.reset();
+                    } else {
+                        showToast(data.message || 'Something went wrong. Please try again.', false);
+                    }
+                },
+                error: function (xhr, status, err) {
+                    console.error('[Contact Form] AJAX error:', status, err);
+                    console.error('[Contact Form] Response:', xhr.responseText);
+                    showToast('Network error. Please try again later.', false);
+                },
+                complete: function () {
+                    // Restore button state
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                    }
+                    if (btnSpan) btnSpan.textContent = originalTxt;
                 }
-
-                if (data.success) {
-                    showToast('Message Sent Successfully!', true);
-                    contactForm.reset();
-                } else {
-                    showToast(data.message || 'Something went wrong. Please try again.', false);
-                }
-
-            } catch (err) {
-                showToast(err.message || 'Network error. Please try again.', false);
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                }
-                if (btnSpan) btnSpan.textContent = originalTxt;
-            }
+            });
         });
     }
 
@@ -815,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             aboutModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+
             // Reset custom cursor states inside modal
             customCursor.classList.remove('drag');
             customCursor.classList.remove('hover');
@@ -825,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModal = () => {
             aboutModal.classList.remove('active');
             document.body.style.overflow = '';
-            
+
             // Clear any inline transforms on the tilted profile card
             const profileCard = aboutModal.querySelector('.profile-card-3d');
             if (profileCard) {
@@ -848,7 +838,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContactBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal();
-                
+
                 // Scroll smoothly to contact section
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
@@ -865,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profileCard) {
             aboutModal.addEventListener('mousemove', (e) => {
                 if (!aboutModal.classList.contains('active')) return;
-                
+
                 const rect = profileCard.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -899,27 +889,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function initWordReveal(element) {
         if (element.dataset.wordRevealedInit === 'true') return;
         element.dataset.wordRevealedInit = 'true';
-        
+
         // Save original child nodes to preserve <br> elements
         const childNodes = Array.from(element.childNodes);
-        
+
         // Clear element and build structure
         element.textContent = '';
-        
+
         childNodes.forEach(node => {
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent;
                 const words = text.split(/\s+/);
-                
+
                 words.forEach(word => {
                     if (word.trim() !== '') {
                         const mask = document.createElement('span');
                         mask.className = 'word-mask';
-                        
+
                         const inner = document.createElement('span');
                         inner.className = 'word-inner';
                         inner.textContent = word;
-                        
+
                         mask.appendChild(inner);
                         element.appendChild(mask);
                     }
@@ -954,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rootMargin: '0px 0px -12% 0px', // Triggers when 12% inside viewport
             threshold: 0
         });
-        
+
         revealElements.forEach(el => revealObserver.observe(el));
     }
 
@@ -984,7 +974,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 // Update local coordinates for CSS spotlight gradient
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
@@ -994,7 +984,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * 6;
                 const rotateY = -((x - centerX) / centerX) * 6;
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
 
@@ -1017,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
 
@@ -1025,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * 5; // max 5deg tilt
                 const rotateY = -((x - centerX) / centerX) * 5;
-                
+
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
             });
 
@@ -1119,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     bgLabel.classList.remove('changing');
                 }, 200);
             });
-            
+
             item.addEventListener('mouseleave', () => {
                 bgLabel.classList.add('changing');
                 setTimeout(() => {
@@ -1198,13 +1188,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Mouse tracking for magnetic tilt deforms
         let menuMouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-        
+
         // Track inside left panel
         leftPanel.addEventListener('mousemove', (e) => {
             const rect = leftPanel.getBoundingClientRect();
             menuMouse.targetX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
             menuMouse.targetY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-            
+
             // Pass local mouse coordinates to CSS custom properties on portrait glow
             const portraitFrame = leftPanel.querySelector('.menu-portrait-frame');
             if (portraitFrame) {
