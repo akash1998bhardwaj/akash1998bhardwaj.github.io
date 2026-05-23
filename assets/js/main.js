@@ -601,9 +601,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // ── EmailJS Configuration ─────────────────────────
         // Replace these with your actual EmailJS credentials
         // Get them from: https://dashboard.emailjs.com
-        const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account → API Keys
-        const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services tab
-        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates tab
+        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';   // Account → API Keys
+        const EMAILJS_SERVICE_ID = 'service_68ur0nw';   // Email Services tab
+        const EMAILJS_TEMPLATE_ID = 'template_bc5gvol';  // Email Templates tab
 
         // Initialize EmailJS
         emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -694,12 +694,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btnSpan) btnSpan.textContent = 'Sending...';
 
             // Build template params from form fields
+            const now = new Date();
             const templateParams = {
-                from_name:    contactForm.querySelector('[name="name"]')?.value || '',
-                from_email:   contactForm.querySelector('[name="email"]')?.value || '',
+                from_name: contactForm.querySelector('[name="name"]')?.value || '',
+                from_email: contactForm.querySelector('[name="email"]')?.value || '',
                 project_type: contactForm.querySelector('[name="project_type"]')?.value || 'General Inquiry',
-                message:      contactForm.querySelector('[name="message"]')?.value || '',
-                reply_to:     contactForm.querySelector('[name="email"]')?.value || ''
+                message: contactForm.querySelector('[name="message"]')?.value || '',
+                reply_to: contactForm.querySelector('[name="email"]')?.value || '',
+                time: now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }) + ' IST'
             };
 
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
