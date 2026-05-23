@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = '0.7';
             }
-            if (btnSpan) btnSpan.textContent = 'Sending…';
+            if (btnSpan) btnSpan.textContent = 'Sending....';
 
             $.ajax({
                 type: 'POST',
