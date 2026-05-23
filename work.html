@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Work | Akash Bhardwaj</title>
+    <meta name="description" content="View all creative portfolios, branding, UI/UX, and digital products designed by Akash Bhardwaj.">
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Link Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/work.css">
+</head>
+
+<body class="work-page">
+    <!-- Curtain Loading Screen -->
+    <div class="page-load-curtain" id="page-curtain">
+        <div class="curtain-glow"></div>
+        <div class="curtain-loader">
+            <span class="loader-percentage" id="loader-percent">0%</span>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar-fill" id="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebGL Background Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="work-header">
+        <a href="index.html" class="logo" id="header-logo-link">AKASH</a>
+
+        <a href="index.html" class="contact-btn" id="back-home-btn">
+            <span class="contact-icon" style="transform: rotate(180deg); display: inline-flex; align-items: center; margin-right: 2px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </span>
+            <span>Back to Home</span>
+        </a>
+    </header>
+
+    <!-- Main Container -->
+    <main class="work-grid-container">
+        <!-- Hero Intro Section -->
+        <section class="work-hero">
+            <div class="section-indicator">
+                <span class="dot"></span>
+                <span>Portfolio Archive</span>
+            </div>
+            <h1 class="work-hero-title">Selected Works</h1>
+            <p class="work-hero-desc">An archive of digital products, visual systems, and bespoke web interfaces built with intention and high aesthetic standards.</p>
+        </section>
+
+        <!-- Project Grid -->
+        <section class="work-showcase-grid">
+            <!-- Project 1: Novapay -->
+            <div class="work-showcase-card" id="scard-novapay">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_novapay.png" alt="Novapay interface mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://novapay.co" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">01</span>
+                            <span class="showcase-category">FinTech Ecosystem</span>
+                        </div>
+                        <h2 class="showcase-title">Novapay</h2>
+                        <p class="showcase-desc">A premium financial technology platform designed to streamline multi-currency payments and automated invoicing systems.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">Branding</span>
+                            <span class="showcase-tag">UI/UX Design</span>
+                            <span class="showcase-tag">Design Systems</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Luma Studio -->
+            <div class="work-showcase-card" id="scard-luma">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_luma.png" alt="Luma Studio interface mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://luma.studio" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">02</span>
+                            <span class="showcase-category">AI Production Suite</span>
+                        </div>
+                        <h2 class="showcase-title">Luma Studio</h2>
+                        <p class="showcase-desc">An immersive, AI-assisted video editing and creative studio platform optimized for modern marketing campaigns and high-end video creators.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">Product Design</span>
+                            <span class="showcase-tag">UI/UX Design</span>
+                            <span class="showcase-tag">WebGL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Aether Labs -->
+            <div class="work-showcase-card" id="scard-aether">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_aether.png" alt="Aether Labs interface mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://aetherlabs.ai" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">03</span>
+                            <span class="showcase-category">Web3 Data Protocol</span>
+                        </div>
+                        <h2 class="showcase-title">Aether Labs</h2>
+                        <p class="showcase-desc">A decentralized data indexing protocol dashboard built to visualize large scale blockchain datasets and real-time event logs with micro-second latency.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">Frontend Dev</span>
+                            <span class="showcase-tag">UI/UX Design</span>
+                            <span class="showcase-tag">Data Visual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Nebula Cloud -->
+            <div class="work-showcase-card" id="scard-nebula">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_nebula.png" alt="Nebula Cloud dashboard mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://nebula.cloud" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">04</span>
+                            <span class="showcase-category">SaaS Cloud Architecture</span>
+                        </div>
+                        <h2 class="showcase-title">Nebula Cloud</h2>
+                        <p class="showcase-desc">A state-of-the-art enterprise multi-cloud operations console, enabling DevOps squads to monitor cluster health, data transfer, and active billing thresholds.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">SaaS Interface</span>
+                            <span class="showcase-tag">Dashboard</span>
+                            <span class="showcase-tag">Product Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: Hesperia Spatial -->
+            <div class="work-showcase-card" id="scard-hesperia">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_hesperia.png" alt="Hesperia Interface mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://hesperia.xyz" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">05</span>
+                            <span class="showcase-category">Spatial Computing OS</span>
+                        </div>
+                        <h2 class="showcase-title">Hesperia OS</h2>
+                        <p class="showcase-desc">An experimental HUD operating system designed for AR glasses, supporting gestural window positioning, spatial audio nodes, and dynamic map rendering.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">Spatial UX</span>
+                            <span class="showcase-tag">Holographic UI</span>
+                            <span class="showcase-tag">Concept Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: Aura Design -->
+            <div class="work-showcase-card" id="scard-aura">
+                <div class="showcase-card-inner">
+                    <div class="showcase-image-wrapper">
+                        <img src="assets/images/work_aura.png" alt="Aura light e-commerce mockup" class="showcase-img">
+                        <div class="showcase-overlay">
+                            <a href="https://aura.design" target="_blank" rel="noopener noreferrer" class="showcase-link-btn">
+                                <span>Visit Live Site</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="showcase-details">
+                        <div class="showcase-meta">
+                            <span class="showcase-number">06</span>
+                            <span class="showcase-category">High-End E-Commerce</span>
+                        </div>
+                        <h2 class="showcase-title">Aura Lighting</h2>
+                        <p class="showcase-desc">An aesthetic e-commerce digital store for luxury lighting design, featuring immersive product configuration models, high-quality images, and smooth micro-interactions.</p>
+                        <div class="showcase-tags">
+                            <span class="showcase-tag">E-Commerce</span>
+                            <span class="showcase-tag">Branding</span>
+                            <span class="showcase-tag">Frontend UI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="position: relative; margin-top: 100px;">
+        <!-- Giant Background Name -->
+        <div class="footer-bg-name-wrap">
+            <span class="footer-bg-name">AKASH BHARDWAJ</span>
+        </div>
+        <div class="footer-bar">
+            <span class="footer-copy">&copy; 2026 Akash Bhardwaj. All rights reserved.</span>
+            <span class="footer-tagline">Crafted with precision &amp; intent.</span>
+        </div>
+    </footer>
+
+    <!-- Three.js Libraries from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Custom JS for Work page -->
+    <script src="assets/js/work.js"></script>
+</body>
+
+</html>

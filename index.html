@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash Bhardwaj | Premium Portfolio</title>
+    <!-- Import SEO Metadata -->
+    <meta name="description"
+        content="Crafting modern digital experiences with clean frontend engineering, responsive design, and performance-driven development by Akash Bhardwaj.">
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <!-- Premium Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Interactive Canvas Particle Grid -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor">
+        <div class="cursor-ring">
+            <span class="cursor-drag-text">Drag</span>
+        </div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- Central Radial Glow Backdrop -->
+    <div class="bg-glow-effect"></div>
+
+    <!-- Header Navigation -->
+    <header>
+        <button class="menu-toggle" aria-label="Toggle Navigation" id="menu-toggle-btn">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="menu-text">Menu</span>
+        </button>
+
+        <a href="#" class="logo" id="header-logo-link">
+            <!-- Custom Prism Monogram (SVG) -->
+            <svg class="logo-svg" width="28" height="28" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g class="logo-icon-group">
+                    <!-- Left stem (green to blue gradient) -->
+                    <path d="M14 2L5 24H11L14 16H17L14 2Z" fill="url(#logo-grad-1)" class="logo-icon-part-1" />
+                    <!-- Right stem (cyan to purple gradient with screen blend mode overlay) -->
+                    <path d="M14 2L23 24H17L14 16H11L14 2Z" fill="url(#logo-grad-2)" class="logo-icon-part-2"
+                        style="mix-blend-mode: screen; opacity: 0.85;" />
+                    <!-- Floating neon crossbar -->
+                    <path d="M10 16H18" stroke="#00ffaa" stroke-width="2" stroke-linecap="round"
+                        class="logo-icon-crossbar" />
+                    <!-- Accent focus dot -->
+                    <circle cx="14" cy="9" r="1.5" fill="#ffffff" class="logo-icon-dot" />
+                </g>
+                <defs>
+                    <linearGradient id="logo-grad-1" x1="5" y1="2" x2="17" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00ffaa" />
+                        <stop offset="1" stop-color="#0088ff" />
+                    </linearGradient>
+                    <linearGradient id="logo-grad-2" x1="23" y1="2" x2="11" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00e5ff" />
+                        <stop offset="1" stop-color="#9900ff" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <!-- Typographic Layout (HTML/CSS) -->
+            <span class="logo-text-wrap">
+                <span class="logo-text">AKASH</span>
+                <span class="logo-subtext">STUDIO</span>
+            </span>
+        </a>
+
+        <a href="#contact" class="contact-btn" id="contact-us-btn">
+            <span>Contact Us</span>
+            <span class="contact-icon">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
+                </svg>
+            </span>
+        </a>
+
+        <!-- Header Scroll Progress Bar -->
+        <div id="header-scroll-progress"></div>
+    </header>
+
+    <!-- Left Sidebar: Social Media -->
+    <div class="social-sidebar">
+        <a href="#" class="social-link" aria-label="Facebook" id="fb-social-link">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M9.101 23.69h4.837v-11.23h3.239l.486-4.086h-3.725v-2.61c0-1.182.329-1.988 2.023-1.988h2.159V.228C17.37.177 15.65 0 13.639 0 9.451 0 6.57 2.557 6.57 7.247v3.359H3v4.086h3.57v11h2.531z" />
+            </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter X" id="x-social-link">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="LinkedIn" id="linkedin-social-link">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram" id="insta-social-link">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Hero Content Layout -->
+    <main class="hero-container">
+
+        <!-- Typography Layer 1: Solid Text (Z-Index: 1, Behind Cube) -->
+        <div class="title-layer title-layer-solid">
+            <h1 class="hero-title">Creative</h1>
+            <h1 class="hero-title">Design Agency</h1>
+        </div>
+
+        <!-- 3D Interactive Rotating Cube (Z-Index: 2, Middle Layer) -->
+        <div class="cube-viewport" id="hero-cube-viewport">
+            <div class="cube-container">
+                <!-- Inner Glowing Core Sphere -->
+                <div class="cube-core"></div>
+                <!-- 6 Cube Faces (Using PNG assets generated by subagent) -->
+                <div class="cube-face face-front" style="background-image: url('assets/images/cube_face_1.png');"></div>
+                <div class="cube-face face-back" style="background-image: url('assets/images/cube_face_1.png');"></div>
+                <div class="cube-face face-right" style="background-image: url('assets/images/cube_face_2.png');"></div>
+                <div class="cube-face face-left" style="background-image: url('assets/images/cube_face_2.png');"></div>
+                <div class="cube-face face-top" style="background-image: url('assets/images/cube_face_3.png');"></div>
+                <div class="cube-face face-bottom" style="background-image: url('assets/images/cube_face_3.png');">
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography Layer 2: Outline Text (Z-Index: 3, In Front of Cube) -->
+        <div class="title-layer title-layer-outline">
+            <div class="hero-title">Creative</div>
+            <div class="hero-title">Design Agency</div>
+        </div>
+
+        <!-- Footer Left: Studio Description & Call To Action -->
+        <div class="footer-left">
+            <p>We help brands and digital products find clarity through branding, UI/UX, and thoughtful design systems.
+            </p>
+            <a href="#projects" class="btn-primary" id="start-project-btn">
+                <span>Start A Project</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Footer Right: Interactive Expertise List -->
+        <div class="footer-right">
+            <div class="expertise-item" id="exp-branding">Branding</div>
+            <div class="expertise-item" id="exp-uiux">UI/UX</div>
+            <div class="expertise-item" id="exp-frontend">Frontend Development</div>
+            <div class="expertise-item" id="exp-prod-design">Product Design</div>
+        </div>
+
+    </main>
+
+    <!-- About Me Section -->
+    <section class="about-section top bottom" id="about">
+        <!-- Decorative vertical line and sparkles on left -->
+        <div class="deco-line-v"></div>
+        <div class="sparkles-v">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="about-content">
+            <div class="section-indicator">
+                <span class="dot"></span>
+                <span>About Me</span>
+            </div>
+
+            <h2 class="about-heading scramble-text">
+                Building digital spaces that feel alive with clean code and modern design.
+            </h2>
+
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <img src="assets/images/img.jpeg" alt="Creative portrait wrapped in neon glows" class="about-img">
+                </div>
+
+                <div class="about-details">
+                    <h3 class="about-subheading">Designing With Intention</h3>
+                    <p class="about-text">
+                        I am a Frontend Developer with 5+ years of experience specializing in React.js, Next.js,
+                        JavaScript, Tailwind CSS, HTML5, CSS3, and responsive web applications.
+                    </p>
+                    <p class="about-text">
+                        Skilled in building modern, high-performance, and user-friendly interfaces with a strong focus
+                        on clean UI, optimization, and scalable frontend architecture. Experienced in integrating APIs,
+                        authentication systems, payment gateways, and AI-powered features.
+                    </p>
+                    <p class="about-text">
+                        Passionate about creating seamless digital experiences, bridging the gap between design and
+                        logic, and continuously learning modern web technologies to build scalable, state-of-the-art
+                        frontend solutions.
+                    </p>
+                    <a href="#about" class="about-btn" id="about-more-btn">
+                        <span>More About Me</span>
+                        <span class="btn-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative horizontal line and sparkles at bottom right -->
+        <div class="deco-line-h"></div>
+        <div class="sparkles-h">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="techstack-section top bottom" id="techstack">
+        <!-- Decorative vertical line and sparkles on left -->
+        <div class="deco-line-tech-v"></div>
+        <div class="sparkles-tech-v">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="techstack-content">
+            <div class="techstack-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>Expertise</span>
+                </div>
+                <h2 class="techstack-heading scramble-text">Tech Stack</h2>
+            </div>
+
+            <div class="techstack-grid">
+                <!-- Card 1: React.js -->
+                <div class="tech-card" id="tech-react">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 9.5C21.2 9.5 25.5 12.4 25.5 16C25.5 19.6 21.2 22.5 16 22.5C10.8 22.5 6.5 19.6 6.5 16C6.5 12.4 10.8 9.5 16 9.5Z"
+                                stroke="#00ffaa" stroke-width="1.5" />
+                            <path
+                                d="M16 9.5C21.2 9.5 25.5 12.4 25.5 16C25.5 19.6 21.2 22.5 16 22.5C10.8 22.5 6.5 19.6 6.5 16C6.5 12.4 10.8 9.5 16 9.5Z"
+                                stroke="#00ffaa" stroke-width="1.5" transform="rotate(60 16 16)" />
+                            <path
+                                d="M16 9.5C21.2 9.5 25.5 12.4 25.5 16C25.5 19.6 21.2 22.5 16 22.5C10.8 22.5 6.5 19.6 6.5 16C6.5 12.4 10.8 9.5 16 9.5Z"
+                                stroke="#00ffaa" stroke-width="1.5" transform="rotate(120 16 16)" />
+                            <circle cx="16" cy="16" r="2.5" fill="#00ffaa" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>React.js</h3>
+                        <p>Component-based web architecture, custom hooks, state machines, context models, and
+                            interactive SPAs.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Advanced</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Next.js -->
+                <div class="tech-card" id="tech-next">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="12" stroke="#00e5ff" stroke-width="1.5" />
+                            <path d="M22.5 22.5L13.5 11.5V20.5" stroke="#00e5ff" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20.5 11.5H22.5" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>Next.js</h3>
+                        <p>Server-side rendering (SSR), static site generation (SSG), dynamic API routes, and advanced
+                            metadata SEO.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Advanced</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: JavaScript -->
+                <div class="tech-card" id="tech-js">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="6" width="20" height="20" rx="3" stroke="#00ffaa" stroke-width="1.5" />
+                            <path
+                                d="M12 21C12 21 13 22 14.5 22C16 22 16.5 21 16.5 20C16.5 18 14 18 13.5 16.5C13 15 14 14 15.5 14C17 14 17.5 15 17.5 15"
+                                stroke="#00ffaa" stroke-width="1.8" stroke-linecap="round" />
+                            <path d="M21 14V21C21 21.8 20.3 22 19.5 22" stroke="#00ffaa" stroke-width="1.8"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>JavaScript (ES6+)</h3>
+                        <p>Asynchronous code flows, data modeling, DOM rendering, LERP motion math, and standard browser
+                            APIs.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Expert</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Tailwind CSS & CSS3 -->
+                <div class="tech-card" id="tech-tailwind">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 9.5C13.5 9.5 11.5 11.5 9.5 13.5C7.5 15.5 7.5 17.5 9.5 19.5L16 22.5L22.5 19.5C24.5 17.5 24.5 15.5 22.5 13.5C20.5 11.5 18.5 9.5 16 9.5Z"
+                                stroke="#00e5ff" stroke-width="1.5" />
+                            <path d="M12 14L16 16L20 14" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>Tailwind &amp; CSS3</h3>
+                        <p>Modern responsive layouts, utility variables, flex/grid rules, custom easing properties, and
+                            glassmorphic designs.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Expert</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 98%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: HTML5 & SEO -->
+                <div class="tech-card" id="tech-html">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 8L10 24L16 26L22 24L24 8H8Z" stroke="#00ffaa" stroke-width="1.5"
+                                stroke-linejoin="round" />
+                            <path d="M12 12H20L19.5 16H13H12.8" stroke="#00ffaa" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M12.5 18.5H18.5L18 21L16 21.5L14 21L13.8 19.5" stroke="#00ffaa" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>HTML5 &amp; SEO</h3>
+                        <p>Semantic tags structure, search engine indexing best practices, schema details, and
+                            accessibility standards (WAI-ARIA).</p>
+                        <div class="tech-level">
+                            <span class="level-label">Expert</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 98%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: API Integration -->
+                <div class="tech-card" id="tech-apis">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 16H23" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" />
+                            <rect x="5" y="12" width="6" height="8" rx="1.5" stroke="#00e5ff" stroke-width="1.5" />
+                            <rect x="21" y="12" width="6" height="8" rx="1.5" stroke="#00e5ff" stroke-width="1.5" />
+                            <path d="M16 11V21" stroke="#00e5ff" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>API Integration</h3>
+                        <p>RESTful APIs, GraphQL queries, Axios setups, secure headers, CORS resolution, and dynamic
+                            JSON payloads management.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Advanced</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Auth & Payments -->
+                <div class="tech-card" id="tech-payments">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="13" width="20" height="13" rx="2" stroke="#00ffaa" stroke-width="1.5" />
+                            <path d="M11 13V10C11 7.2 13.2 5 16 5C18.8 5 21 7.2 21 10v3" stroke="#00ffaa"
+                                stroke-width="1.5" stroke-linecap="round" />
+                            <circle cx="16" cy="19.5" r="1.5" fill="#00ffaa" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>Auth &amp; Payments</h3>
+                        <p>JSON Web Tokens (JWT) storage, OAuth flows, Stripe gateway checkouts, subscription templates,
+                            and secure cookies.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Advanced</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: AI-Powered Features -->
+                <div class="tech-card" id="tech-ai">
+                    <div class="tech-card-spotlight"></div>
+                    <div class="tech-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 6L18.5 13.5H26L20 18L22.5 25.5L16 21L9.5 25.5L12 18L6 13.5H13.5L16 6Z"
+                                stroke="#00e5ff" stroke-width="1.5" stroke-linejoin="round" />
+                            <circle cx="16" cy="16" r="3" stroke="#00e5ff" stroke-width="1.5" />
+                        </svg>
+                    </div>
+                    <div class="tech-info">
+                        <h3>AI Integrations</h3>
+                        <p>OpenAI GPT APIs, structured prompts engineering, streaming responses, Vector DB context
+                            retrieval, and chat integrations.</p>
+                        <div class="tech-level">
+                            <span class="level-label">Advanced</span>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative horizontal line and sparkles at bottom right -->
+        <div class="deco-line-tech-h"></div>
+        <div class="sparkles-tech-h">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- Selected Work Section -->
+    <section class="works-section top bottom" id="work">
+        <div class="works-content">
+            <div class="works-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>Works</span>
+                </div>
+                <h2 class="works-heading scramble-text">Selected Work</h2>
+            </div>
+
+            <div class="works-grid">
+                <!-- Card 1: Novapay -->
+                <a href="#work-novapay" class="work-card" id="card-novapay"
+                    style="background-image: url('assets/images/work_novapay.png');">
+                    <div class="work-card-spotlight"></div>
+                    <div class="work-card-content">
+                        <h3>Novapay</h3>
+                        <p>Branding &bull; Branding</p>
+                    </div>
+                </a>
+
+                <!-- Card 2: Luma Studio -->
+                <a href="#work-luma" class="work-card" id="card-luma"
+                    style="background-image: url('assets/images/work_luma.png');">
+                    <div class="work-card-spotlight"></div>
+                    <div class="work-card-content">
+                        <h3>Luma Studio</h3>
+                        <p>UI/UX &bull; UI/UX</p>
+                    </div>
+                </a>
+
+                <!-- Card 3: Aether Labs -->
+                <a href="#work-aether" class="work-card" id="card-aether"
+                    style="background-image: url('assets/images/work_aether.png');">
+                    <div class="work-card-spotlight"></div>
+                    <div class="work-card-content">
+                        <h3>Aether Labs</h3>
+                        <p>UI/UX &bull; UI/UX</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- View All My Work CTA -->
+            <div class="works-cta-wrapper">
+                <a href="work.html" class="btn-primary" id="view-all-works-btn">
+                    <span>View All My Work</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative horizontal line and sparkles at bottom left -->
+        <div class="deco-line-works-h"></div>
+        <div class="sparkles-works-h">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services (What We Do) Section -->
+    <section class="services-section " id="services">
+        <div class="services-content">
+            <div class="services-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>What We Do</span>
+                </div>
+                <h2 class="services-heading scramble-text">What We Do</h2>
+            </div>
+
+            <div class="accordion-container">
+                <!-- Row 1: Branding Design -->
+                <div class="services-row" id="row-branding">
+                    <button class="services-row-header" aria-expanded="false" aria-controls="content-branding">
+                        <span class="services-row-title">Branding Design</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="services-row-content" id="content-branding">
+                        <div class="services-row-inner">
+                            <p class="services-row-text">
+                                We build brand identities that feel intentional, distinctive, and built to last. From
+                                early-stage positioning to full rebrands, we help define how your brand looks, sounds,
+                                and shows up everywhere.
+                            </p>
+                            <div class="services-tags">
+                                <span class="service-tag"><span class="tag-plus">+</span> Brand Strategy</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Visual identity</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Logo systems</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Brand guidelines</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Rebranding</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: UI/UX Design -->
+                <div class="services-row" id="row-uiux">
+                    <button class="services-row-header" aria-expanded="false" aria-controls="content-uiux">
+                        <span class="services-row-title">UI/UX Design</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="services-row-content" id="content-uiux">
+                        <div class="services-row-inner">
+                            <p class="services-row-text">
+                                <strong>Human-Centered Digital Experiences</strong><br><br>
+                                I create modern, user-focused interfaces that combine clean aesthetics with seamless
+                                functionality. My approach is focused on building intuitive digital products that
+                                improve engagement, simplify user journeys, and deliver real business value. From
+                                landing pages and SaaS dashboards to mobile-first interfaces, I design experiences that
+                                are visually appealing, scalable, and easy to use across all devices.
+                            </p>
+                            <div class="services-tags">
+                                <span class="service-tag"><span class="tag-plus">+</span> User-Centered Design</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Wireframing &
+                                    Prototyping</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Responsive Design
+                                    Systems</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> UI Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Frontend Development -->
+                <div class="services-row" id="row-frontend">
+                    <button class="services-row-header" aria-expanded="false" aria-controls="content-frontend">
+                        <span class="services-row-title">Frontend Development</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="services-row-content" id="content-frontend">
+                        <div class="services-row-inner">
+                            <p class="services-row-text">
+                                <strong>Building Fast, Modern & Interactive Web Applications</strong><br><br>
+                                I transform ideas into high-performance digital products using modern frontend
+                                technologies like React.js and Next.js. My development process focuses on speed,
+                                responsiveness, scalability, and clean architecture. From dynamic business websites to
+                                complex web applications, I build interfaces that are optimized for performance, SEO,
+                                and user engagement.
+                            </p>
+                            <div class="services-tags">
+                                <span class="service-tag"><span class="tag-plus">+</span> React.js & Next.js
+                                    Development</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Interactive UI &
+                                    Animations</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> API Integration</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Performance
+                                    Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4: Product Design -->
+                <div class="services-row" id="row-product">
+                    <button class="services-row-header" aria-expanded="false" aria-controls="content-product">
+                        <span class="services-row-title">Product Design</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="services-row-content" id="content-product">
+                        <div class="services-row-inner">
+                            <p class="services-row-text">
+                                We help define, shape, and launch new products from concept to market fit. Working
+                                closely with founders, we build user flows, wireframes, and scalable SaaS interfaces.
+                            </p>
+                            <div class="services-tags">
+                                <span class="service-tag"><span class="tag-plus">+</span> Product Strategy</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> MVP Design</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> SaaS Interfaces</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> User Testing</span>
+                                <span class="service-tag"><span class="tag-plus">+</span> Scalable UI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative horizontal line and sparkles at bottom right -->
+        <div class="deco-line-services-h"></div>
+        <div class="sparkles-services-h">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- How We Work (Process) Section -->
+    <section class="process-section top bottom" id="process">
+        <!-- Decorative vertical line and sparkles on left -->
+        <div class="deco-line-process-v"></div>
+        <div class="sparkles-process-v">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="process-content">
+            <div class="process-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>How We Work</span>
+                </div>
+                <h2 class="process-heading scramble-text">A Focused Approach to Meaningful Design</h2>
+            </div>
+
+            <!-- Drag-to-scroll horizontal container -->
+            <div class="process-track-wrapper">
+
+                <!-- Horizontal Timeline Progress Bar -->
+                <div class="process-timeline-container">
+                    <div class="process-timeline-line">
+                        <div class="process-timeline-progress" id="process-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="process-track" id="process-scroll-track">
+                    <!-- Step 01: Understand -->
+                    <div class="process-card" id="pcard-understand">
+                        <div class="process-card-spotlight"></div>
+                        <div class="card-bg-number">01</div>
+                        <div class="process-card-header">
+                            <div class="process-icon-wrapper">
+                                <svg class="process-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <circle cx="12" cy="12" r="6" />
+                                    <circle cx="12" cy="12" r="2" />
+                                    <line x1="12" y1="1" x2="12" y2="3" />
+                                    <line x1="12" y1="21" x2="12" y2="23" />
+                                    <line x1="1" y1="12" x2="3" y2="12" />
+                                    <line x1="21" y1="12" x2="23" y2="12" />
+                                </svg>
+                            </div>
+                            <span class="process-card-number">Step 01</span>
+                        </div>
+                        <h3 class="process-card-title">Understand</h3>
+                        <p class="process-card-text">We gather insights, analyze requirements, and align project goals
+                            with strategic decisions.</p>
+                        <div class="process-subtasks">
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Discovery &amp;
+                                Research</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Competitor Analysis</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Technical Alignment</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 02: Explore -->
+                    <div class="process-card" id="pcard-explore">
+                        <div class="process-card-spotlight"></div>
+                        <div class="card-bg-number">02</div>
+                        <div class="process-card-header">
+                            <div class="process-icon-wrapper">
+                                <svg class="process-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                                    <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" stroke-dasharray="2,2" />
+                                    <circle cx="20" cy="12" r="1" fill="currentColor" />
+                                    <circle cx="12" cy="4" r="1" fill="currentColor" />
+                                </svg>
+                            </div>
+                            <span class="process-card-number">Step 02</span>
+                        </div>
+                        <h3 class="process-card-title">Explore</h3>
+                        <p class="process-card-text">We test ideas, explore directions, and shape early concepts.</p>
+                        <div class="process-subtasks">
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Creative Direction</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Low-Fi Wireframes</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Moodboards &amp;
+                                Styles</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 03: Design -->
+                    <div class="process-card" id="pcard-design">
+                        <div class="process-card-spotlight"></div>
+                        <div class="card-bg-number">03</div>
+                        <div class="process-card-header">
+                            <div class="process-icon-wrapper">
+                                <svg class="process-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="16" width="4" height="4" rx="1" />
+                                    <rect x="18" y="4" width="4" height="4" rx="1" />
+                                    <path d="M4 16C4 10 10 6 18 6" />
+                                    <circle cx="10" cy="11" r="1.5" fill="currentColor" />
+                                    <line x1="4" y1="16" x2="8" y2="12" stroke-dasharray="2 2" />
+                                    <line x1="18" y1="6" x2="14" y2="10" stroke-dasharray="2 2" />
+                                </svg>
+                            </div>
+                            <span class="process-card-number">Step 03</span>
+                        </div>
+                        <h3 class="process-card-title">Design</h3>
+                        <p class="process-card-text">We craft identities, interfaces, and systems with clarity and
+                            intent.</p>
+                        <div class="process-subtasks">
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> High-Fidelity UI/UX</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Design Systems</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Interactive
+                                Prototypes</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 04: Deliver -->
+                    <div class="process-card" id="pcard-deliver">
+                        <div class="process-card-spotlight"></div>
+                        <div class="card-bg-number">04</div>
+                        <div class="process-card-header">
+                            <div class="process-icon-wrapper">
+                                <svg class="process-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <span class="process-card-number">Step 04</span>
+                        </div>
+                        <h3 class="process-card-title">Deliver</h3>
+                        <p class="process-card-text">We refine, document, and hand off work ready to scale.</p>
+                        <div class="process-subtasks">
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Developer Handoff</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> Code Implementation</span>
+                            <span class="subtask-item"><span class="subtask-bullet">+</span> QA &amp; Launch
+                                Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who I Work With Section -->
+    <section class="whowith-section" id="whowith">
+        <div class="whowith-sticky">
+
+            <!-- Decorative sparkles top-left -->
+            <div class="sparkles-whowith">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                </svg>
+            </div>
+
+            <!-- Left sticky heading: WHO / WORK -->
+            <div class="whowith-heading whowith-left-heading" id="whowith-left-text">
+                <span>WHO</span>
+                <span>WORK</span>
+            </div>
+
+            <!-- Center: scrolling cards window -->
+            <div class="whowith-window" id="whowith-window">
+                <div class="whowith-track" id="whowith-track">
+
+                    <!-- Card 1: Startups & Founders -->
+                    <div class="ww-card" id="ww-c1">
+                        <div class="ww-card-header">
+                            <span class="ww-card-title">Startups &amp; Founders</span>
+                            <div class="ww-dots">
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ww-card-icon">
+                            <svg viewBox="0 0 80 90" fill="none" width="70" height="78">
+                                <path
+                                    d="M40 12 C27 12 18 22 18 35 C18 45 24 52 28 57 L28 68 L52 68 L52 57 C56 52 62 45 62 35 C62 22 53 12 40 12Z"
+                                    stroke="white" stroke-width="2.5" />
+                                <line x1="32" y1="73" x2="48" y2="73" stroke="white" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="35" y1="79" x2="45" y2="79" stroke="white" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <circle cx="60" cy="20" r="10" stroke="#00ffaa" stroke-width="2" />
+                                <circle cx="60" cy="20" r="4" stroke="#00ffaa" stroke-width="1.5" />
+                                <line x1="60" y1="7" x2="60" y2="11" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="60" y1="29" x2="60" y2="33" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="47" y1="20" x2="51" y2="20" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="69" y1="20" x2="73" y2="20" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <path d="M70 44 L71.5 39 L73 44 L78 45.5 L73 47 L71.5 52 L70 47 L65 45.5Z"
+                                    fill="#00ffaa" />
+                            </svg>
+                        </div>
+                        <p class="ww-card-text">Early-stage teams turning ideas into products people love. I help define
+                            UI/UX, component systems, and launch-ready web apps.</p>
+                    </div>
+
+                    <!-- Card 2: Growing Businesses -->
+                    <div class="ww-card" id="ww-c2">
+                        <div class="ww-card-header">
+                            <span class="ww-card-title">Growing Businesses</span>
+                            <div class="ww-dots">
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ww-card-icon">
+                            <svg viewBox="0 0 90 80" fill="none" width="80" height="71">
+                                <line x1="20" y1="70" x2="20" y2="44" stroke="white" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <polyline points="13,54 20,44 27,54" stroke="white" stroke-width="2.5" fill="none"
+                                    stroke-linejoin="round" stroke-linecap="round" />
+                                <line x1="45" y1="70" x2="45" y2="30" stroke="white" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <polyline points="38,40 45,30 52,40" stroke="white" stroke-width="2.5" fill="none"
+                                    stroke-linejoin="round" stroke-linecap="round" />
+                                <line x1="70" y1="70" x2="70" y2="44" stroke="white" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <polyline points="63,54 70,44 77,54" stroke="white" stroke-width="2.5" fill="none"
+                                    stroke-linejoin="round" stroke-linecap="round" />
+                                <line x1="8" y1="70" x2="82" y2="70" stroke="white" stroke-width="1.5" opacity="0.3"
+                                    stroke-linecap="round" />
+                                <circle cx="45" cy="17" r="8" stroke="#00ffaa" stroke-width="2" />
+                                <line x1="45" y1="25" x2="45" y2="30" stroke="#00ffaa" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <path d="M42 17 C42 15 45 12 45 12 C45 12 48 15 48 17" stroke="#00ffaa"
+                                    stroke-width="1.5" fill="none" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <p class="ww-card-text">Companies looking to modernize their web presence with fast, visually
+                            polished, and conversion-focused interfaces that elevate perception.</p>
+                    </div>
+
+                    <!-- Card 3: Product Teams -->
+                    <div class="ww-card" id="ww-c3">
+                        <div class="ww-card-header">
+                            <span class="ww-card-title">Product Teams</span>
+                            <div class="ww-dots">
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="rgba(255,255,255,0.12)">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ww-card-icon">
+                            <svg viewBox="0 0 100 85" fill="none" width="85" height="72">
+                                <circle cx="28" cy="52" r="9" stroke="white" stroke-width="2.5" />
+                                <path d="M12 80 C12 68 19 63 28 63 C37 63 44 68 44 80" stroke="white" stroke-width="2.5"
+                                    fill="none" stroke-linecap="round" />
+                                <circle cx="72" cy="52" r="9" stroke="white" stroke-width="2.5" />
+                                <path d="M56 80 C56 68 63 63 72 63 C81 63 88 68 88 80" stroke="white" stroke-width="2.5"
+                                    fill="none" stroke-linecap="round" />
+                                <rect x="32" y="8" width="36" height="30" rx="3" stroke="#00ffaa" stroke-width="2" />
+                                <line x1="42" y1="32" x2="42" y2="22" stroke="#00ffaa" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <line x1="50" y1="32" x2="50" y2="18" stroke="#00ffaa" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <line x1="58" y1="32" x2="58" y2="26" stroke="#00ffaa" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <line x1="50" y1="38" x2="50" y2="44" stroke="#00ffaa" stroke-width="1.5" />
+                                <line x1="42" y1="44" x2="58" y2="44" stroke="#00ffaa" stroke-width="1.5" />
+                            </svg>
+                        </div>
+                        <p class="ww-card-text">In-house teams building complex digital products. I support with UI
+                            systems, frontend architecture, and component libraries.</p>
+                    </div>
+
+                    <!-- Card 4: Creative & Tech Partners -->
+                    <div class="ww-card" id="ww-c4">
+                        <div class="ww-card-header">
+                            <span class="ww-card-title">Creative &amp; Tech Partners</span>
+                            <div class="ww-dots">
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" width="10" height="10" fill="#00ffaa">
+                                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ww-card-icon">
+                            <svg viewBox="0 0 100 70" fill="none" width="88" height="62">
+                                <path d="M5 48 L25 36 L38 44 L50 36 L62 44 L75 36 L95 48" stroke="white"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                <path d="M38 44 C40 38 60 38 62 44" stroke="white" stroke-width="2.5" fill="none"
+                                    stroke-linecap="round" />
+                                <circle cx="50" cy="17" r="12" stroke="#00ffaa" stroke-width="2" />
+                                <circle cx="50" cy="17" r="5" stroke="#00ffaa" stroke-width="1.5" />
+                                <line x1="50" y1="2" x2="50" y2="6" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="50" y1="28" x2="50" y2="32" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="35" y1="17" x2="39" y2="17" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                                <line x1="61" y1="17" x2="65" y2="17" stroke="#00ffaa" stroke-width="2.5"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <p class="ww-card-text">Design studios and agencies needing a skilled frontend developer to
+                            translate Figma designs into pixel-perfect, animated, living code.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right sticky heading: I / WITH -->
+            <div class="whowith-heading whowith-right-heading" id="whowith-right-text">
+                <span>I</span>
+                <span>WITH</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section top bottom" id="faq">
+
+        <!-- Right decorative vertical line + sparkles -->
+        <div class="deco-line-faq-v"></div>
+        <div class="sparkles-faq-v">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="faq-content">
+
+            <!-- Left: sticky info panel -->
+            <div class="faq-left">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>FAQ</span>
+                </div>
+                <h2 class="faq-heading scramble-text">Frequently<br>Asked<br>Questions</h2>
+                <p class="faq-desc">Everything you need to know before we work together. Can't find your answer? Reach
+                    out — I reply fast.</p>
+                <a href="#contact" class="about-btn" id="faq-contact-btn">
+                    <span>Ask Me Directly</span>
+                    <span class="btn-icon">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Right: FAQ accordion -->
+            <div class="faq-accordion-wrap" id="faq-accordion">
+
+                <!-- 01 -->
+                <div class="faq-item active" id="faq-item-1">
+                    <button class="faq-btn" aria-expanded="true" aria-controls="faq-ans-1">
+                        <span class="faq-num">01</span>
+                        <span class="faq-q">What types of projects do you take on?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-1">
+                        <div class="faq-answer-inner">
+                            <p>From single-page portfolios and landing pages to complex SaaS dashboards and e-commerce
+                                UIs. If it's a frontend challenge that needs clean code and sharp design, I'm in.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 -->
+                <div class="faq-item" id="faq-item-2">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-2">
+                        <span class="faq-num">02</span>
+                        <span class="faq-q">What's your typical process when starting a project?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-2">
+                        <div class="faq-answer-inner">
+                            <p>We kick off with a discovery call to align on goals, audience, and timeline. Then I move
+                                into wireframing, build iteratively with regular feedback loops, and deliver clean,
+                                documented code ready to launch or hand off.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 -->
+                <div class="faq-item" id="faq-item-3">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-3">
+                        <span class="faq-num">03</span>
+                        <span class="faq-q">Do you design, develop, or both?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-3">
+                        <div class="faq-answer-inner">
+                            <p>Both. I'm equally comfortable working from Figma handoffs provided by your designer, or
+                                owning the full design-to-code pipeline from scratch if you need end-to-end delivery.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 -->
+                <div class="faq-item" id="faq-item-4">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-4">
+                        <span class="faq-num">04</span>
+                        <span class="faq-q">What tech stack do you use?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-4">
+                        <div class="faq-answer-inner">
+                            <p>HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, Framer Motion, Three.js, and GSAP —
+                                always tailored to what the project actually needs, not over-engineered for its own
+                                sake.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 05 -->
+                <div class="faq-item" id="faq-item-5">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-5">
+                        <span class="faq-num">05</span>
+                        <span class="faq-q">How long does a typical project take?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-5">
+                        <div class="faq-answer-inner">
+                            <p>A polished landing page typically takes 1–2 weeks. A full web app or product UI is 4–12
+                                weeks depending on scope. You'll get a clear timeline estimate after our first
+                                conversation — no surprises.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 06 -->
+                <div class="faq-item" id="faq-item-6">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-6">
+                        <span class="faq-num">06</span>
+                        <span class="faq-q">What does working with you cost?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-6">
+                        <div class="faq-answer-inner">
+                            <p>I work on a project-basis or a monthly retainer. Pricing depends on scope, complexity,
+                                and timeline. Share your brief and I'll put together a transparent, itemized proposal —
+                                no hidden fees.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 07 -->
+                <div class="faq-item" id="faq-item-7">
+                    <button class="faq-btn" aria-expanded="false" aria-controls="faq-ans-7">
+                        <span class="faq-num">07</span>
+                        <span class="faq-q">Do you offer support after the project launches?</span>
+                        <div class="plus-icon-wrapper">
+                            <span class="plus-line vertical"></span>
+                            <span class="plus-line horizontal"></span>
+                        </div>
+                    </button>
+                    <div class="faq-answer" id="faq-ans-7">
+                        <div class="faq-answer-inner">
+                            <p>Yes. I offer post-launch maintenance packages and retainer plans covering ongoing
+                                updates, bug fixes, performance improvements, and new feature development as your
+                                product grows.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section top bottom" id="testimonials">
+        <!-- Decorative sparkles top-right -->
+        <div class="sparkles-testimonials-tr">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="testimonials-content">
+            <div class="testimonials-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>Testimonials</span>
+                </div>
+                <h2 class="testimonials-heading scramble-text">Trusted By Teams</h2>
+            </div>
+
+            <!-- Drag-to-scroll testimonials track -->
+            <div class="testimonials-track-wrapper">
+                <div class="testimonials-track" id="testimonials-track">
+
+                    <!-- Card 1 -->
+                    <div class="testi-card" id="tcard-1">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+                                    <path
+                                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                                </svg>
+                            </div>
+                            <div class="testi-author">
+                                <span class="testi-name">Sarah Williams</span>
+                                <span class="testi-role">Product Lead, SaaS Company</span>
+                            </div>
+                            <span class="testi-date">Apr 22, 2024</span>
+                        </div>
+                        <div class="testi-stars">
+                            <span class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span>
+                        </div>
+                        <h3 class="testi-title">Design That Truly Works</h3>
+                        <p class="testi-text">"They didn't just design something beautiful — they solved real problems.
+                            Our product feels simpler and stronger than ever."</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="testi-card" id="tcard-2">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+                                    <path
+                                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                                </svg>
+                            </div>
+                            <div class="testi-author">
+                                <span class="testi-name">Daniel Wright</span>
+                                <span class="testi-role">Co-Founder, Startup</span>
+                            </div>
+                            <span class="testi-date">Apr 22, 2024</span>
+                        </div>
+                        <div class="testi-stars">
+                            <span class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span><span class="star filled">★</span><span
+                                class="star">★</span>
+                        </div>
+                        <h3 class="testi-title">A Partner You Trust</h3>
+                        <p class="testi-text">"It felt less like hiring an agency and more like working with a true
+                            partner who cared about our success."</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="testi-card" id="tcard-3">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+                                    <path
+                                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                                </svg>
+                            </div>
+                            <div class="testi-author">
+                                <span class="testi-name">Chris Alvarez</span>
+                                <span class="testi-role">UX Lead</span>
+                            </div>
+                            <span class="testi-date">Mar 10, 2024</span>
+                        </div>
+                        <div class="testi-stars">
+                            <span class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span>
+                        </div>
+                        <h3 class="testi-title">Simple, Clear And Effective</h3>
+                        <p class="testi-text">"They removed complexity from our product without losing personality.
+                            Everything feels easier for users now."</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="testi-card" id="tcard-4">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+                                    <path
+                                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                                </svg>
+                            </div>
+                            <div class="testi-author">
+                                <span class="testi-name">Mia Chen</span>
+                                <span class="testi-role">CEO, Tech Brand</span>
+                            </div>
+                            <span class="testi-date">Feb 5, 2024</span>
+                        </div>
+                        <div class="testi-stars">
+                            <span class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span><span class="star filled">★</span><span
+                                class="star filled">★</span>
+                        </div>
+                        <h3 class="testi-title">From Kickoff To Final Delivery</h3>
+                        <p class="testi-text">"From kickoff to final delivery, the work was clear and intentional. They
+                            understood our vision instantly and executed it flawlessly."</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <!-- Decorative vertical line and sparkles on right -->
+        <div class="deco-line-contact-v"></div>
+        <div class="sparkles-contact-v">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="sparkle-icon">
+                <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+            </svg>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-heading-wrapper">
+                <div class="section-indicator">
+                    <span class="dot"></span>
+                    <span>Let’s Build Something Amazing</span>
+                </div>
+                <h2 class="contact-heading scramble-text">Let’s Turn Your Ideas Into Reality</h2>
+                <p class="contact-subtext">Have a project idea, startup vision, or frontend challenge? I’m ready to help
+                    build modern, scalable, and user-friendly digital experiences.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <form class="contact-form" id="contact-form" novalidate>
+                    <p class="contact-intro-text"
+                        style="font-family: var(--font-body); font-size: 14.5px; color: var(--text-muted); line-height: 1.6; font-weight: 300; margin-bottom: 10px;">
+                        Every successful product starts with a strong idea and the right execution. Whether you need a
+                        responsive website, a modern React.js application, or performance-focused frontend development,
+                        I can help bring your vision to life with clean code and modern UI/UX practices.
+                    </p>
+                    <div class="form-row">
+                        <div class="form-group" id="fg-name">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" name="name" placeholder="What’s your name?"
+                                autocomplete="name" required>
+                        </div>
+                        <div class="form-group" id="fg-email">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" name="email" placeholder="Where can I reach you?"
+                                autocomplete="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group" id="fg-project-type">
+                        <label for="contact-project-type">Project Type</label>
+                        <select id="contact-project-type" name="project_type" required>
+                            <option value="" disabled selected>What would you like to build?</option>
+                            <option value="Responsive Website">Responsive Website</option>
+                            <option value="React.js / Next.js Application">React.js / Next.js Application</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                            <option value="Frontend Optimization">Frontend Optimization</option>
+                            <option value="Custom Web Development">Custom Web Development</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="fg-message">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message"
+                            placeholder="Tell me about your project or idea..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="contact-submit-btn">
+                        <span>Send Message</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Contact Info Panel -->
+                <div class="contact-info">
+                    <div class="contact-info-item" id="ci-email">
+                        <div class="ci-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <div class="ci-text">
+                            <span class="ci-label">Email</span>
+                            <span class="ci-value"><a href="mailto:hello@akashbhardwaj.dev"
+                                    style="color: inherit; text-decoration: none;">hello@akashbhardwaj.dev</a></span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item" id="ci-location">
+                        <div class="ci-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div class="ci-text">
+                            <span class="ci-label">Location</span>
+                            <span class="ci-value">India (Available for remote projects worldwide)</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item" id="ci-availability">
+                        <div class="ci-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div class="ci-text">
+                            <span class="ci-label">Availability</span>
+                            <span class="ci-value">Monday – Saturday, 10:00 AM – 7:00 PM (IST)</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-social">
+                        <a href="#" class="contact-social-link" id="cs-fb" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9.101 23.69h4.837v-11.23h3.239l.486-4.086h-3.725v-2.61c0-1.182.329-1.988 2.023-1.988h2.159V.228C17.37.177 15.65 0 13.639 0 9.451 0 6.57 2.557 6.57 7.247v3.359H3v4.086h3.57v11h2.531z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="contact-social-link" id="cs-tw" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="contact-social-link" id="cs-li" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="contact-social-link" id="cs-ig" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer — Big Name -->
+
+    </section>
+    <footer class="site-footer" id="site-footer">
+        <!-- Giant Background Name -->
+        <div class="footer-bg-name-wrap">
+            <span class="footer-bg-name">AKASH BHARDWAJ</span>
+        </div>
+
+        <div class="footer-widgets-grid">
+            <!-- Col 1: Bio & Availability -->
+            <div class="footer-widget widget-bio">
+                <span class="footer-widget-brand-name"
+                    style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; text-transform: uppercase; color: var(--text-main); letter-spacing: -0.01em; display: block;">AKASH
+                    BHARDWAJ</span>
+                <p class="footer-bio-text"
+                    style="font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--text-muted); font-weight: 300; margin-top: -5px; margin-bottom: 10px;">
+                    Crafting modern digital experiences with clean frontend engineering, responsive design, and
+                    performance-driven development.
+                </p>
+                <span class="widget-title-small"><span class="pulse-dot"></span> Status</span>
+                <p class="availability-status">Available for freelance &amp; full-time contracts</p>
+                <div class="local-time-wrap">
+                    <span class="time-label">Local Time:</span>
+                    <span id="footer-local-time">--:--:-- PM</span>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div class="footer-widget widget-links">
+                <span class="widget-title-small">Quick Links</span>
+                <div class="widget-links-grid">
+                    <a href="#about" class="f-link"><span>01.</span> About</a>
+                    <a href="#work" class="f-link"><span>02.</span> Projects</a>
+                    <a href="#services" class="f-link"><span>03.</span> Services</a>
+                    <a href="#contact" class="f-link"><span>04.</span> Contact</a>
+                </div>
+            </div>
+
+            <!-- Col 3: Social Links -->
+            <div class="footer-widget widget-socials">
+                <span class="widget-title-small">Connect</span>
+                <div class="widget-socials-list">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="f-social-item">GitHub
+                        <span class="arrow">&nearr;</span></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                        class="f-social-item">LinkedIn <span class="arrow">&nearr;</span></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                        class="f-social-item">Instagram <span class="arrow">&nearr;</span></a>
+                    <a href="mailto:hello@akashbhardwaj.dev" class="f-social-item">Email <span
+                            class="arrow">&nearr;</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bar">
+            <span class="footer-copy">&copy; 2026 Akash Bhardwaj. Carefully crafted with React.js & Next.js. All rights
+                reserved.</span>
+            <button class="back-to-top-btn" id="back-to-top-btn">
+                <span>Back to Top</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 15l-6-6-6 6" />
+                </svg>
+            </button>
+        </div>
+    </footer>
+    <!-- Fullscreen Overlay Menu -->
+    <div class="menu-overlay">
+        <div class="menu-overlay-grid">
+            <!-- Left Panel: Three.js Interactive Mesh + Portrait -->
+            <div class="menu-overlay-left">
+                <canvas id="menu-three-canvas"></canvas>
+                <div class="menu-portrait-frame">
+                    <div class="menu-portrait-glow"></div>
+                    <div class="menu-portrait-wrap">
+                        <img src="assets/images/img1.jpeg" alt="Akash Portrait" class="menu-portrait-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Navigation typographies & dynamic bg labels -->
+            <div class="menu-overlay-right">
+                <div class="menu-bg-label">NAVIGATION</div>
+                <div class="menu-container">
+                    <a href="#home" class="menu-item" id="menu-home"><span>01.</span>Home</a>
+                    <a href="#work" class="menu-item" id="menu-work"><span>02.</span>Work</a>
+                    <a href="#about" class="menu-item" id="menu-about"><span>03.</span>About</a>
+                    <a href="#services" class="menu-item" id="menu-services"><span>04.</span>Services</a>
+                    <a href="#process" class="menu-item" id="menu-process"><span>05.</span>Process</a>
+                    <a href="#whowith" class="menu-item" id="menu-whowith"><span>06.</span>Work With</a>
+                    <a href="#faq" class="menu-item" id="menu-faq"><span>07.</span>FAQ</a>
+                    <a href="#testimonials" class="menu-item" id="menu-testimonials"><span>08.</span>Testimonials</a>
+                    <a href="#contact" class="menu-item" id="menu-contact"><span>09.</span>Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Perspective About Modal -->
+    <div class="modal-overlay" id="about-modal">
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Close Modal" id="modal-close-btn">&times;</button>
+            <div class="modal-content">
+                <div class="modal-grid">
+                    <!-- Modal Left: Profile Card -->
+                    <div class="modal-left">
+                        <div class="profile-card-3d">
+                            <div class="profile-card-glow"></div>
+                            <div class="profile-avatar-wrap">
+                                <img src="assets/images/about_studio.png" alt="Akash Portrait" class="profile-avatar">
+                            </div>
+                            <h3 class="profile-name">Akash</h3>
+                            <p class="profile-title">Creative Frontend Developer</p>
+                            <div class="profile-socials">
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                                    class="psocial-link">+ GitHub</a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                                    class="psocial-link">+ LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Right: Full Bio and Actions -->
+                    <div class="modal-right">
+                        <span class="modal-section-tag">About Me</span>
+                        <h2 class="modal-heading">Building digital spaces that feel alive.</h2>
+                        <p class="modal-text">
+                            I am a creative frontend developer and UI/UX designer. I specialize in building immersive
+                            web applications with responsive layouts, clean code structures, and micro-animations that
+                            surprise and delight users.
+                        </p>
+                        <p class="modal-text" style="margin-top: -10px;">
+                            Bridging the gap between design and logic, I translate high-end Figma concepts into
+                            interactive, pixel-perfect, and motion-rich digital realities.
+                        </p>
+
+                        <div class="modal-skills-section">
+                            <h4 class="skills-heading">Tech Stack &amp; Expertise</h4>
+                            <div class="modal-skills-grid">
+                                <span class="mskill-tag">React / Next.js</span>
+                                <span class="mskill-tag">Three.js / WebGL</span>
+                                <span class="mskill-tag">GSAP / Framer Motion</span>
+                                <span class="mskill-tag">CSS / SASS / Tailwind</span>
+                                <span class="mskill-tag">Figma UI/UX</span>
+                                <span class="mskill-tag">Design Systems</span>
+                            </div>
+                        </div>
+
+                        <!-- Modal Actions -->
+                        <div class="modal-actions">
+                            <a href="assets/pdf/Akash_Bhardwaj_CV_Resume_2026-03-26.pdf" download="Akash_CV.pdf"
+                                class="btn-primary" id="modal-cv-btn">
+                                <span>Download CV</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                                </svg>
+                            </a>
+
+                            <a href="#contact" class="about-btn" id="modal-contact-btn">
+                                <span>Contact Us</span>
+                                <span class="btn-icon">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link main JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
