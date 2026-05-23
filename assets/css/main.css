@@ -1166,7 +1166,7 @@ header.scrolled::before {
     header.scrolled {
         transform: translate(-50%, calc(-100% - 16px));
         width: calc(100% - 32px);
-        max-width: 440px;
+        max-width: 100%;
         padding: 8px 12px;
     }
 
@@ -4809,7 +4809,9 @@ header.scrolled::before {
 
 .scramble-text.revealed .word-inner {
     transform: translateY(0);
-}/* ====================================================
+}
+
+/* ====================================================
    GLOBAL RESPONSIVE OVERRIDES
    These rules override previous styles for precise
    scaling across 7 key breakpoints.
@@ -4819,10 +4821,15 @@ header.scrolled::before {
    1. Large Desktop (max-width: 1440px)
    ---------------------------------------------------- */
 @media (max-width: 1440px) {
-    .container, .about-content, .techstack-grid, .services-grid {
+
+    .container,
+    .about-content,
+    .techstack-grid,
+    .services-grid {
         max-width: 1200px;
         margin: 0 auto;
     }
+
     .hero-title {
         font-size: 11vw;
     }
@@ -4836,16 +4843,20 @@ header.scrolled::before {
         font-size: 14vw;
         letter-spacing: -4px;
     }
+
     .hero-title {
         font-size: 11vw;
         letter-spacing: -2px;
     }
+
     .techstack-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
     .footer-grid {
         gap: 60px;
     }
+
     .about-content {
         gap: 60px;
     }
@@ -4855,54 +4866,64 @@ header.scrolled::before {
    3. Tablet Landscape (max-width: 1024px)
    ---------------------------------------------------- */
 @media (max-width: 1024px) {
+
     /* Layout structural shifts */
     section {
         padding: 100px 6vw;
     }
+
     .hero-section {
-        padding: 0; 
+        padding: 0;
     }
+
     .about-content {
         flex-direction: column;
         align-items: flex-start;
     }
-    .about-left, .about-right {
+
+    .about-left,
+    .about-right {
         width: 100%;
     }
+
     .about-right {
         padding-left: 0;
         border-left: none;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         padding-top: 40px;
     }
-    
+
     .techstack-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .contact-wrapper {
         flex-direction: column;
         gap: 60px;
     }
-    .contact-form-container, .contact-info-panel {
+
+    .contact-form-container,
+    .contact-info-panel {
         width: 100%;
         max-width: 100%;
         border-left: none;
         padding-left: 0;
     }
-    
+
     .footer-grid {
         flex-direction: column;
         gap: 40px;
     }
+
     .footer-col {
         width: 100%;
     }
-    
+
     /* Typography */
     .section-title {
         font-size: 50px;
     }
+
     .hero-title {
         font-size: 12vw;
     }
@@ -4915,41 +4936,48 @@ header.scrolled::before {
     .faq-wrapper {
         flex-direction: column;
     }
+
     .faq-left {
         width: 100%;
         position: relative;
         top: 0;
         margin-bottom: 40px;
     }
+
     .faq-right {
         width: 100%;
     }
-    
+
     .process-track-container {
         padding: 0 4vw;
     }
+
     .process-card {
         min-width: 350px;
         height: 450px;
     }
-    
+
     /* Menu Overlay Adjustments */
     .menu-overlay .menu-content {
         flex-direction: column-reverse;
     }
-    .menu-left-panel, .menu-right-panel {
+
+    .menu-left-panel,
+    .menu-right-panel {
         width: 100%;
         height: auto;
     }
+
     .menu-left-panel {
         min-height: 40vh;
         border-right: none;
-        border-top: 1px solid rgba(255,255,255,0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
+
     .menu-right-panel {
         padding: 100px 6vw 40px;
     }
-    
+
     .services-grid {
         grid-template-columns: 1fr;
     }
@@ -4959,80 +4987,93 @@ header.scrolled::before {
    5. Mobile Landscape / Small Tablet (max-width: 768px)
    ---------------------------------------------------- */
 @media (max-width: 768px) {
+
     /* Global Section Paddings */
     section {
         padding: 80px 5vw;
     }
+
     .hero-section {
         padding: 0;
     }
-    
+
     /* Header */
     .header {
         padding: 16px 5vw;
     }
-    
+
     /* Hide non-essential text on mobile to save space */
-    .menu-text, .logo-subtext {
+    .menu-text,
+    .logo-subtext {
         display: none;
     }
-    
+
     /* Scale down logo and button */
     .logo-text {
         font-size: 16px;
     }
+
     .logo-svg {
         width: 24px;
         height: 24px;
     }
+
     .contact-btn {
         padding: 8px 16px;
         font-size: 11px;
         gap: 6px;
     }
-    
+
     /* Disable Custom Cursor on Touch Devices */
-    .custom-cursor, .cursor-dot {
+    .custom-cursor,
+    .cursor-dot {
         display: none !important;
     }
+
     * {
         cursor: auto !important;
     }
-    
+
     /* Hero Adjustments */
     .hero-title {
         font-size: 12vw;
     }
+
     .hero-cube-container {
         transform: scale(0.7);
     }
-    
+
     /* Tech Stack */
     .techstack-grid {
         grid-template-columns: 1fr;
     }
-    
+
     /* Typography */
     .section-title {
         font-size: 38px;
     }
+
     .giant-name {
         font-size: 16vw;
         letter-spacing: -2px;
     }
+
     .footer-cta-text {
         font-size: 32px;
     }
-    
+
     /* Modal */
     .about-modal-content {
         flex-direction: column;
         border-radius: 0;
         min-height: 100vh;
     }
+
     .about-modal-left {
-        display: none; /* Hide 3D card on mobile to save space */
+        display: none;
+        /* Hide 3D card on mobile to save space */
     }
+
     .about-modal-right {
         padding: 40px 5vw;
     }
@@ -5045,41 +5086,77 @@ header.scrolled::before {
     section {
         padding: 60px 4vw;
     }
-    
+
     /* Typography */
     .section-title {
         font-size: 32px;
     }
+
     .section-number {
         font-size: 13px;
         margin-bottom: 16px;
     }
+
     .hero-title {
         font-size: 12vw;
     }
-    
+
     .process-card {
-        min-width: 280px;
-        height: 380px;
+
         padding: 30px;
     }
-    
+
     .tech-card {
         padding: 24px;
     }
-    
+
     .contact-form-container {
         padding: 30px 20px;
     }
-    .form-group input, .form-group textarea {
+
+    .form-group input,
+    .form-group textarea {
         padding: 16px 20px;
         font-size: 14px;
     }
-    
+
     .footer-bottom {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+
+    .services-row-title {
+        font-size: 14px;
+    }
+
+    .process-card-title {
+        font-size: 14px;
+    }
+
+    .process-card {
+        min-width: auto;
+        height: auto;
+    }
+
+    /* header.scrolled {
+        transform: translate(0, calc(-100% - 16px));
+        width: 90%;
+        max-width: fit-content;
+        padding: 8px 12px;
+        left: 0;
+    } */
+
+    .footer-bg-name {
+        display: none;
+    }
+
+    .menu-item {
+        font-size: 6vw;
+    }
+
+    .menu-item span {
+        opacity: 1;
     }
 }
 
@@ -5090,22 +5167,23 @@ header.scrolled::before {
     .section-title {
         font-size: 28px;
     }
+
     .hero-title {
         font-size: 12vw;
     }
+
     .hero-cube-container {
         transform: scale(0.6);
     }
-    .process-card {
-        min-width: 250px;
-        height: 340px;
-    }
+
+
+
     .techstack-grid {
         gap: 20px;
     }
+
     .faq-question {
         font-size: 16px;
         padding: 20px 0;
     }
 }
-
