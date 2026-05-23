@@ -26,7 +26,7 @@ if (empty($name) || strlen($name) < 3) {
     $errors[] = 'Please enter a valid name (at least 3 characters).';
 }
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Please enter a valid email address..';
+    $errors[] = 'Please enter a valid email address.';
 }
 if (empty($message) || strlen($message) < 10) {
     $errors[] = 'Please enter your message (at least 10 characters).';
