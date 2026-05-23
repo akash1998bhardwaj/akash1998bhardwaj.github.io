@@ -1,4 +1,10 @@
 <?php
+// Capture any stray output (PHP notices/warnings) so they don't break JSON
+ob_start();
+
+// Suppress notices/warnings from polluting JSON output
+error_reporting(0);
+ini_set('display_errors', '0');
 
 // Contact Form Mailer — Akash Bhardwaj Portfolio
 session_start();
@@ -33,6 +39,7 @@ if (empty($message) || strlen($message) < 10) {
 }
 
 if (!empty($errors)) {
+    ob_clean();
     echo json_encode(['success' => false, 'message' => implode(' ', $errors)]);
     exit;
 }
@@ -355,6 +362,7 @@ try {
     $userMail->AltBody = "Hi $name, thanks for reaching out! I received your message and will reply within 24 hours.\n\n— Akash Bhardwaj\nakash1998bhardwaj@gmail.com";
     $userMail->send();
 
+    ob_clean();
     echo json_encode([
         'success' => true,
         'message' => 'Your message has been sent! Check your inbox for a confirmation email.'
@@ -362,6 +370,7 @@ try {
     exit;
 
 } catch (Exception $e) {
+    ob_clean();
     echo json_encode([
         'success' => false,
         'message' => 'Mailer error: ' . $e->getMessage()

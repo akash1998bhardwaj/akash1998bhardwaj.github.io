@@ -691,15 +691,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData
                 });
 
+                // Read raw text first so we can debug if JSON parse fails
+                const rawText = await response.text();
+
                 let data;
                 try {
-                    data = await response.json();
+                    data = JSON.parse(rawText);
                 } catch (_) {
-                    throw new Error('Server returned an unexpected response.');
+                    // Log raw server response to console for easy debugging
+                    console.error('[Contact Form] Server response was not valid JSON:');
+                    console.error(rawText);
+                    throw new Error('Server error. Please try again later.');
                 }
 
                 if (data.success) {
-                    showToast('✓  Message Sent!', true);
+                    showToast('Message Sent Successfully!', true);
                     contactForm.reset();
                 } else {
                     showToast(data.message || 'Something went wrong. Please try again.', false);
