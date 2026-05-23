@@ -1,0 +1,464 @@
+/* Showcase Page Stylesheet - Premium Creative Agency Portfolio */
+
+.work-page {
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+}
+
+.work-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(6, 9, 8, 0.95) 0%, rgba(6, 9, 8, 0.6) 50%, transparent 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Curtain Loader Screen */
+.page-load-curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #040706;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.2s cubic-bezier(0.85, 0, 0.15, 1),
+                visibility 1.2s;
+}
+
+.page-load-curtain.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.curtain-glow {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+    filter: blur(60px);
+    opacity: 0.18;
+    animation: loaderGlow 3s infinite ease-in-out alternate;
+}
+
+.curtain-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+}
+
+.loader-percentage {
+    font-family: var(--font-heading);
+    font-size: 56px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--accent-glow);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.loader-bar-wrap {
+    width: 180px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    box-shadow: 0 0 10px var(--accent-primary);
+    transition: width 0.1s ease-out;
+}
+
+@keyframes loaderGlow {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.14;
+    }
+    100% {
+        transform: scale(1.15);
+        opacity: 0.24;
+    }
+}
+
+/* WebGL Background Canvas overlay */
+#webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Portfolio Archive Grid Structure */
+.work-grid-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 200px 4vw 120px 4vw;
+    position: relative;
+    z-index: 10;
+}
+
+.work-hero {
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    position: relative;
+    max-width: 800px;
+}
+
+.work-hero-title {
+    font-family: var(--font-heading);
+    font-size: 5.6vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.work-hero-desc {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* Alternate Staggered Column layout */
+.work-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 90px 50px;
+    width: 100%;
+}
+
+/* Offset even column cards downward to stagger layout */
+.work-showcase-grid .work-showcase-card:nth-child(even) {
+    transform: translateY(80px);
+}
+
+/* Showcase Card styling */
+.work-showcase-card {
+    position: relative;
+    width: 100%;
+    border-radius: 28px;
+    will-change: transform;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.work-showcase-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Reapply vertical translation stagger even after viewport reveal class */
+.work-showcase-grid .work-showcase-card:nth-child(even).revealed {
+    transform: translateY(80px);
+}
+
+.showcase-card-inner {
+    background: rgba(10, 15, 13, 0.55);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    border-radius: 28px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    transition: border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.work-showcase-card:hover .showcase-card-inner {
+    border-color: rgba(0, 255, 170, 0.4);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 255, 170, 0.08);
+}
+
+/* Image frame and zoom transitions */
+.showcase-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #0b0f0e;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.showcase-img {
+    width: 100%;
+    height: 115%; /* Extra height to accommodate scroll translation */
+    object-fit: cover;
+    transform: translateY(-7%);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+}
+
+.work-showcase-card:hover .showcase-img {
+    transform: scale(1.04) translateY(-7%);
+}
+
+/* Interactive hover curtain on image */
+.showcase-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 9, 8, 0.72);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 5;
+}
+
+.showcase-image-wrapper:hover .showcase-overlay {
+    opacity: 1;
+}
+
+.showcase-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background-color: var(--accent-primary);
+    color: var(--bg-color);
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
+    text-decoration: none;
+    transform: translateY(15px);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background-color 0.3s,
+                box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 255, 170, 0.3);
+}
+
+.showcase-image-wrapper:hover .showcase-link-btn {
+    transform: translateY(0);
+}
+
+.showcase-link-btn:hover {
+    background-color: #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.showcase-link-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.showcase-link-btn:hover svg {
+    transform: translate(2px, -2px);
+}
+
+/* Card details and metadata alignment */
+.showcase-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.showcase-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.showcase-number {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--accent-primary);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.showcase-category {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.showcase-title {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 15px 0;
+    letter-spacing: 0.02em;
+}
+
+.showcase-desc {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 0 0 25px 0;
+    min-height: 72px; /* Set baseline to align grids */
+}
+
+/* Tags list */
+.showcase-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.showcase-tag {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.showcase-tag:hover {
+    color: var(--accent-primary);
+    border-color: rgba(0, 255, 170, 0.3);
+}
+
+/* Home button back navigation */
+#back-home-btn {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+#back-home-btn:hover {
+    border-color: var(--accent-primary);
+}
+
+#back-home-btn .contact-icon svg {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#back-home-btn:hover .contact-icon svg {
+    transform: translateX(-4px) scale(1.1);
+}
+
+/* Global button positioning inside Works Section on homepage */
+.works-cta-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 80px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Media query definitions for responsive display sizes */
+@media (max-width: 1024px) {
+    .work-hero-title {
+        font-size: 7vw;
+    }
+
+    .work-showcase-grid {
+        gap: 70px 40px;
+    }
+
+    .showcase-title {
+        font-size: 26px;
+    }
+
+    .showcase-desc {
+        min-height: 88px; /* Offset for narrower wrappers */
+    }
+}
+
+@media (max-width: 768px) {
+    .work-header {
+        padding: 20px 6vw;
+    }
+
+    .work-grid-container {
+        padding: 150px 6vw 80px 6vw;
+    }
+
+    .work-hero {
+        margin-bottom: 60px;
+    }
+
+    .work-hero-title {
+        font-size: 10vw;
+    }
+
+    .work-hero-desc {
+        font-size: 15px;
+    }
+
+    .work-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    /* Disable stagger transform offset on mobile stacked viewports */
+    .work-showcase-grid .work-showcase-card:nth-child(even),
+    .work-showcase-grid .work-showcase-card:nth-child(even).revealed {
+        transform: translateY(0);
+    }
+
+    .showcase-card-inner {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .showcase-title {
+        font-size: 24px;
+    }
+
+    .showcase-desc {
+        min-height: auto;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+}
