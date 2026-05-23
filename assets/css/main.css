@@ -1345,6 +1345,19 @@ header.scrolled::before {
     aspect-ratio: 1.8;
     box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.about-image-wrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: auto;
+    border-radius: 16px;
 }
 
 .about-img {
