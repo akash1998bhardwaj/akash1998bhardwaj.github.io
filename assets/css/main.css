@@ -4971,8 +4971,24 @@ header.scrolled::before {
     .header {
         padding: 16px 5vw;
     }
-    .studio-logo {
+    
+    /* Hide non-essential text on mobile to save space */
+    .menu-text, .logo-subtext {
+        display: none;
+    }
+    
+    /* Scale down logo and button */
+    .logo-text {
+        font-size: 16px;
+    }
+    .logo-svg {
+        width: 24px;
+        height: 24px;
+    }
+    .contact-btn {
+        padding: 8px 16px;
         font-size: 11px;
+        gap: 6px;
     }
     
     /* Disable Custom Cursor on Touch Devices */
