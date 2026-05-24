@@ -1279,5 +1279,158 @@ document.addEventListener('DOMContentLoaded', () => {
 
         startMenuThreeAnimation();
     }
+
+    // ----------------------------------------------------
+    // 22. Contact Us "Well-Pulley" Scroll Animation
+    // ----------------------------------------------------
+    const pulleyRopeOverlay = document.getElementById('pulley-rope-overlay');
+    const formRopeAnchor = document.querySelector('.form-rope-anchor');
+    const pulleyLeftAnchor = document.getElementById('pulley-left-anchor');
+    const pulleyRightAnchor = document.getElementById('pulley-right-anchor');
+    const boyHandAnchor = document.getElementById('boy-hand-anchor');
+    const ropePath = document.getElementById('rope-path');
+
+    function drawRope() {
+        if (!pulleyRopeOverlay || !formRopeAnchor || !pulleyLeftAnchor || !pulleyRightAnchor || !boyHandAnchor || !ropePath) return;
+
+        // Hide rope if display width is too small (mobile/stacked view)
+        if (window.innerWidth <= 1024) {
+            ropePath.setAttribute('d', '');
+            return;
+        }
+
+        const rectOverlay = pulleyRopeOverlay.getBoundingClientRect();
+        const rectForm = formRopeAnchor.getBoundingClientRect();
+        const rectPL = pulleyLeftAnchor.getBoundingClientRect();
+        const rectPR = pulleyRightAnchor.getBoundingClientRect();
+        const rectHand = boyHandAnchor.getBoundingClientRect();
+
+        // Convert page coordinates to overlay local SVG coordinates
+        const fx = rectForm.left + rectForm.width / 2 - rectOverlay.left;
+        const fy = rectForm.top - rectOverlay.top;
+
+        const plx = rectPL.left + rectPL.width / 2 - rectOverlay.left;
+        const ply = rectPL.top + rectPL.height / 2 - rectOverlay.top;
+
+        const prx = rectPR.left + rectPR.width / 2 - rectOverlay.left;
+        const pry = rectPR.top + rectPR.height / 2 - rectOverlay.top;
+
+        const hx = rectHand.left + rectHand.width / 2 - rectOverlay.left;
+        const hy = rectHand.top + rectHand.height / 2 - rectOverlay.top;
+
+        // Calculate dynamic pulley radius based on distance between anchors
+        const pulleyRadius = Math.abs(prx - plx) / 2;
+
+        // Path description:
+        // M [form] -> L [pulley left] -> Arc [pulley right] -> L [boy hand] -> Bezier Curve (slack)
+        const pathData = `
+            M ${fx} ${fy}
+            L ${plx} ${ply}
+            A ${pulleyRadius} ${pulleyRadius} 0 0 1 ${prx} ${pry}
+            L ${hx} ${hy}
+            Q ${hx + 12} ${hy + 45} ${hx - 8} ${hy + 110}
+        `;
+        ropePath.setAttribute('d', pathData.trim().replace(/\s+/g, ' '));
+    }
+
+    // Register ScrollTrigger to handle pulley drawing and animations
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        ScrollTrigger.matchMedia({
+            // Desktop layout: pin and animate
+            "(min-width: 1025px)": function () {
+                const contactTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".contact-section",
+                        start: "20% top",      // Pin when top of section reaches top of screen
+                        end: "+=1600",         // Scroll length
+                        scrub: 1.2,
+                        pin: true,             // Pin the section
+                        pinSpacing: true,      // Push subsequent content
+                        onUpdate: drawRope
+                    }
+                });
+
+                // --- Phase 1: Boy walks in from right (0.0 to 0.3 of timeline) ---
+                contactTimeline.fromTo("#boy-body",
+                    { x: 140, opacity: 0 },
+                    { x: 0, opacity: 1, ease: "power1.inOut" },
+                    0
+                );
+
+                // Swing legs back and forth to simulate walking
+                contactTimeline.fromTo("#boy-leg-front",
+                    { rotation: -24, transformOrigin: "100px 140px" },
+                    { rotation: 24, ease: "sine.inOut", repeat: 5, yoyo: true },
+                    0
+                );
+                contactTimeline.fromTo("#boy-leg-back",
+                    { rotation: 24, transformOrigin: "125px 140px" },
+                    { rotation: -24, ease: "sine.inOut", repeat: 5, yoyo: true },
+                    0
+                );
+
+                // --- Phase 2: Reach for rope (0.3 to 0.4 of timeline) ---
+                // Move arms from relaxed walking posture to grab the rope anchor
+                contactTimeline.fromTo("#boy-arms",
+                    { y: 15, x: 20, rotation: -45 },
+                    { y: -18, x: -10, rotation: -25, ease: "power1.out" },
+                    0.3
+                );
+
+                // --- Phase 3: Pull the rope (0.4 to 1.0 of timeline) ---
+                // 1. Contact Form slides up from bottom
+                contactTimeline.fromTo(".contact-form-wrapper",
+                    { y: "110vh", opacity: 0 },
+                    { y: 0, opacity: 1, ease: "power2.out" },
+                    0.4
+                );
+
+                // 2. Boy's arms pull downward
+                contactTimeline.to("#boy-arms",
+                    { y: 22, x: 12, rotation: 18, ease: "power2.out" },
+                    0.4
+                );
+
+                // 3. Boy's body leans back as he pulls (upper body only, legs remain grounded)
+                contactTimeline.to("#boy-upper-body",
+                    { rotation: 12, transformOrigin: "115px 140px", ease: "power2.out" },
+                    0.4
+                );
+
+                // 4. Pulley rotates counter-clockwise (axle centered at 60px 65px)
+                contactTimeline.fromTo("#pulley-wheel",
+                    { rotation: 0, transformOrigin: "60px 65px" },
+                    { rotation: -420, transformOrigin: "60px 65px", ease: "power2.out" },
+                    0.4
+                );
+
+                // 5. Texture movement on the rope path (offset slides back)
+                contactTimeline.fromTo("#rope-path",
+                    { strokeDashoffset: 0 },
+                    { strokeDashoffset: 180, ease: "none" },
+                    0.4
+                );
+            },
+
+            // Mobile layout: reset any transformation and hide rope
+            "(max-width: 1024px)": function () {
+                gsap.set(".contact-form-wrapper", { clearProps: "all" });
+                gsap.set("#boy-arms", { clearProps: "all" });
+                gsap.set("#boy-body", { clearProps: "all" });
+                gsap.set("#boy-upper-body", { clearProps: "all" });
+                gsap.set("#boy-leg-front", { clearProps: "all" });
+                gsap.set("#boy-leg-back", { clearProps: "all" });
+                gsap.set("#pulley-wheel", { clearProps: "all" });
+                if (ropePath) ropePath.setAttribute('d', '');
+            }
+        });
+    }
+
+    // Window size adjustment
+    window.addEventListener('resize', drawRope);
+    // Draw rope after DOM elements are laid out
+    setTimeout(drawRope, 150);
 });
 

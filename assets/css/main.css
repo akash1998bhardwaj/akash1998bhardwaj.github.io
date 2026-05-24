@@ -3230,8 +3230,8 @@ header.scrolled::before {
 /* Two-column grid: form + info */
 .contact-grid {
     display: grid;
-    grid-template-columns: 1.4fr 0.6fr;
-    gap: 5vw;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4vw;
     align-items: flex-start;
     width: 100%;
 }
@@ -3470,7 +3470,71 @@ header.scrolled::before {
     transform: translateY(-2px);
 }
 
+/* Pulley & Character System */
+.pulley-character-area {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    overflow: visible;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
 
+.pulley-character-area:hover {
+    border-color: rgba(0, 255, 170, 0.15);
+    background: rgba(0, 255, 170, 0.01);
+}
+
+.pulley-mount {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
+#pulley-structure {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.1));
+}
+
+#boy-character {
+    filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.08));
+}
+
+#rope-path {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.4));
+}
+
+@media (min-width: 1025px) {
+    .contact-section {
+        height: 100vh;
+        min-height: 750px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    
+    .contact-info {
+        gap: 12px !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .contact-info-item {
+        padding: 12px 18px !important;
+    }
+    
+    .pulley-character-area {
+        height: 210px !important;
+    }
+}
 
 /* Responsive Contact Section */
 @media (max-width: 1024px) {
@@ -3500,6 +3564,23 @@ header.scrolled::before {
     .deco-line-contact-v,
     .sparkles-contact-v {
         display: none;
+    }
+
+    .pulley-character-area {
+        display: none !important;
+    }
+
+    #pulley-rope-overlay {
+        display: none !important;
+    }
+
+    .pulley-mount {
+        display: none !important;
+    }
+
+    .contact-form-wrapper {
+        transform: none !important;
+        opacity: 1 !important;
     }
 }
 

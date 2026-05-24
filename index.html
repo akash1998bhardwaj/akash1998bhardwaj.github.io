@@ -1717,127 +1717,333 @@
                     build modern, scalable, and user-friendly digital experiences.</p>
             </div>
 
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <form class="contact-form" id="contact-form" novalidate>
-                    <p class="contact-intro-text"
-                        style="font-family: var(--font-body); font-size: 14.5px; color: var(--text-muted); line-height: 1.6; font-weight: 300; margin-bottom: 10px;">
-                        Every successful product starts with a strong idea and the right execution. Whether you need a
-                        responsive website, a modern React.js application, or performance-focused frontend development,
-                        I can help bring your vision to life with clean code and modern UI/UX practices.
-                    </p>
-                    <div class="form-row">
-                        <div class="form-group" id="fg-name">
-                            <label for="contact-name">Full Name</label>
-                            <input type="text" id="contact-name" name="name" placeholder="What’s your name?"
-                                autocomplete="name" required>
+            <div class="contact-grid" style="position: relative;">
+                <!-- Full grid overlay for Rope SVG -->
+                <svg id="pulley-rope-overlay"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; overflow: visible;">
+                    <path id="rope-path" stroke="var(--accent-primary)" stroke-width="3.5" stroke-linecap="round"
+                        fill="none" stroke-linejoin="round" stroke-dasharray="12 6" />
+                </svg>
+
+                <!-- Suspended Pulley Mount -->
+                <div class="pulley-mount"
+                    style="position: absolute; top: -35px; left: 56.5%; transform: translateX(-50%); z-index: 5; pointer-events: none;">
+                    <svg id="pulley-structure" viewBox="0 0 150 150" width="120" height="120"
+                        style="overflow: visible;">
+                        <!-- Mounting plate at the ceiling -->
+                        <rect x="40" y="5" width="40" height="5" fill="rgba(255, 255, 255, 0.25)" rx="2" />
+                        <!-- Industrial Support Bracket -->
+                        <path d="M 60 10 L 60 65" stroke="rgba(255, 255, 255, 0.3)" stroke-width="5"
+                            stroke-linecap="round" fill="none" />
+                        <path d="M 50 10 L 60 40 L 70 10" stroke="rgba(255, 255, 255, 0.15)" stroke-width="3"
+                            stroke-linecap="round" fill="none" />
+                        <!-- Shackle / Bracket holding the axle -->
+                        <path d="M 54 53 C 54 45 66 45 66 53 L 66 65 C 66 70 54 70 54 65 Z"
+                            fill="rgba(0, 255, 170, 0.1)" stroke="var(--accent-primary)" stroke-width="2" />
+                        <circle cx="60" cy="65" r="4.5" fill="var(--bg-color)" stroke="var(--accent-primary)"
+                            stroke-width="2.5" />
+
+                        <!-- Rotating Wheel -->
+                        <g id="pulley-wheel" style="transform-origin: 60px 65px;">
+                            <!-- Outer Gear/Pulley Rim -->
+                            <circle cx="60" cy="65" r="28" stroke="var(--accent-primary)" stroke-width="4"
+                                fill="none" />
+                            <circle cx="60" cy="65" r="24" stroke="#18181b" stroke-width="2" fill="none" />
+                            <circle cx="60" cy="65" r="21" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"
+                                fill="none" />
+
+                            <!-- Outer Rim Gear Teeth (creates a mechanical spinning effect) -->
+                            <path
+                                d="M 60 33 L 60 37 M 60 93 L 60 97 M 28 65 L 32 65 M 88 65 L 92 65 M 37 42 L 40 45 M 83 88 L 80 85 M 37 88 L 40 85 M 83 42 L 80 45"
+                                stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" />
+
+                            <!-- Spokes with high detail -->
+                            <line x1="60" y1="42" x2="60" y2="88" stroke="var(--accent-primary)" stroke-width="3"
+                                stroke-linecap="round" />
+                            <line x1="37" y1="65" x2="83" y2="65" stroke="var(--accent-primary)" stroke-width="3"
+                                stroke-linecap="round" />
+                            <line x1="44" y1="49" x2="76" y2="81" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="44" y1="81" x2="76" y2="49" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2"
+                                stroke-linecap="round" />
+
+                            <!-- Center Hub -->
+                            <circle cx="60" cy="65" r="10" fill="#18181b" stroke="var(--accent-primary)"
+                                stroke-width="2.5" />
+                            <circle cx="60" cy="65" r="6" fill="#fff" opacity="0.9" />
+                            <circle cx="60" cy="65" r="3" fill="#18181b" />
+
+                            <!-- Small bolt dots on the rim to emphasize rotation -->
+                            <circle cx="60" cy="40" r="1.5" fill="#fff" />
+                            <circle cx="60" cy="90" r="1.5" fill="#fff" />
+                            <circle cx="35" cy="65" r="1.5" fill="#fff" />
+                            <circle cx="85" cy="65" r="1.5" fill="#fff" />
+                        </g>
+                        <!-- Anchor points for JS calculation -->
+                        <circle id="pulley-left-anchor" cx="32" cy="65" r="1" fill="none" />
+                        <circle id="pulley-right-anchor" cx="88" cy="65" r="1" fill="none" />
+                    </svg>
+                </div>
+
+                <!-- Contact Form Wrapper -->
+                <div class="contact-form-wrapper"
+                    style="position: relative; width: 100%; transition: opacity 0.3s ease;">
+                    <div class="form-rope-anchor"
+                        style="position: absolute; top: 0; left: 50%; width: 2px; height: 2px; background: transparent; transform: translate(-50%, 0); z-index: 10;">
+                    </div>
+                    <form class="contact-form" id="contact-form" novalidate>
+                        <!-- <p class="contact-intro-text"
+                            style="font-family: var(--font-body); font-size: 14.5px; color: var(--text-muted); line-height: 1.6; font-weight: 300; margin-bottom: 10px;">
+                            Every successful product starts with a strong idea and the right execution. Whether you need a
+                            responsive website, a modern React.js application, or performance-focused frontend development,
+                            I can help bring your vision to life with clean code and modern UI/UX practices.
+                        </p> -->
+                        <div class="form-row">
+                            <div class="form-group" id="fg-name">
+                                <label for="contact-name">Full Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="What’s your name?"
+                                    autocomplete="name" required>
+                            </div>
+                            <div class="form-group" id="fg-email">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" name="email" placeholder="Where can I reach you?"
+                                    autocomplete="email" required>
+                            </div>
                         </div>
-                        <div class="form-group" id="fg-email">
-                            <label for="contact-email">Email Address</label>
-                            <input type="email" id="contact-email" name="email" placeholder="Where can I reach you?"
-                                autocomplete="email" required>
+                        <div class="form-group" id="fg-project-type">
+                            <label for="contact-project-type">Project Type</label>
+                            <select id="contact-project-type" name="project_type" required>
+                                <option value="" disabled selected>What would you like to build?</option>
+                                <option value="Responsive Website">Responsive Website</option>
+                                <option value="React.js / Next.js Application">React.js / Next.js Application</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="Frontend Optimization">Frontend Optimization</option>
+                                <option value="Custom Web Development">Custom Web Development</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="fg-message">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message"
+                                placeholder="Tell me about your project or idea..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="contact-submit-btn">
+                            <span>Send Message</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: contact-info + pulley-character-area (stretched to align boy at bottom) -->
+                <div class="contact-right-column"
+                    style="display: flex; flex-direction: column; justify-content: space-between; gap: 30px; width: 100%; align-self: stretch;">
+                    <!-- Contact Info Panel (Top) -->
+                    <div class="contact-info" style="padding-bottom: 0px;">
+                        <div class="contact-info-item" id="ci-email">
+                            <div class="ci-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                    <polyline points="22,6 12,13 2,6" />
+                                </svg>
+                            </div>
+                            <div class="ci-text">
+                                <span class="ci-label">Email</span>
+                                <span class="ci-value"><a href="mailto:hello@akashbhardwaj.dev"
+                                        style="color: inherit; text-decoration: none;">hello@akashbhardwaj.dev</a></span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item" id="ci-location">
+                            <div class="ci-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                            <div class="ci-text">
+                                <span class="ci-label">Location</span>
+                                <span class="ci-value">India (Available for remote projects worldwide)</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item" id="ci-availability">
+                            <div class="ci-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                            </div>
+                            <div class="ci-text">
+                                <span class="ci-label">Availability</span>
+                                <span class="ci-value">Monday – Saturday, 10:00 AM – 7:00 PM (IST)</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-social">
+                            <a href="#" class="contact-social-link" id="cs-fb" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M9.101 23.69h4.837v-11.23h3.239l.486-4.086h-3.725v-2.61c0-1.182.329-1.988 2.023-1.988h2.159V.228C17.37.177 15.65 0 13.639 0 9.451 0 6.57 2.557 6.57 7.247v3.359H3v4.086h3.57v11h2.531z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="contact-social-link" id="cs-tw" aria-label="Twitter">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="contact-social-link" id="cs-li" aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="contact-social-link" id="cs-ig" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <div class="form-group" id="fg-project-type">
-                        <label for="contact-project-type">Project Type</label>
-                        <select id="contact-project-type" name="project_type" required>
-                            <option value="" disabled selected>What would you like to build?</option>
-                            <option value="Responsive Website">Responsive Website</option>
-                            <option value="React.js / Next.js Application">React.js / Next.js Application</option>
-                            <option value="UI/UX Design">UI/UX Design</option>
-                            <option value="Frontend Optimization">Frontend Optimization</option>
-                            <option value="Custom Web Development">Custom Web Development</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="fg-message">
-                        <label for="contact-message">Message</label>
-                        <textarea id="contact-message" name="message"
-                            placeholder="Tell me about your project or idea..." rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit" id="contact-submit-btn">
-                        <span>Send Message</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
+
+                    <!-- Pulley & Character Animation Area (Bottom) -->
+                    <div class="pulley-character-area"
+                        style="position: relative; width: 100%; height: 260px; background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 20px; overflow: visible; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2); margin-top: auto;">
+                        <!-- Boy character SVG -->
+                        <svg id="boy-character" viewBox="0 0 200 230" width="160" height="184"
+                            style="z-index: 2; overflow: visible;">
+                            <defs>
+                                <linearGradient id="ground-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(0,255,170,0)" />
+                                    <stop offset="50%" stop-color="rgba(0,255,170,0.15)" />
+                                    <stop offset="100%" stop-color="rgba(0,255,170,0)" />
+                                </linearGradient>
+                            </defs>
+                            <line x1="20" y1="210" x2="180" y2="210" stroke="url(#ground-grad)" stroke-width="2" />
+
+                            <g id="boy-body">
+                                <!-- Back leg (thick cargo jeans & sneaker) -->
+                                <g id="boy-leg-back" style="transform-origin: 125px 140px;">
+                                    <path d="M 120 140 L 132 180 L 142 205 L 133 205 L 122 178 L 112 140 Z"
+                                        fill="#1b1f2b" />
+                                    <path d="M 125 140 L 132 178 L 142 205" stroke="#252936" stroke-width="9"
+                                        stroke-linecap="round" fill="none" />
+                                    <path d="M 129 143 L 134 175" stroke="rgba(255, 255, 255, 0.08)" stroke-width="3"
+                                        stroke-linecap="round" fill="none" />
+                                    <!-- Utility strap hanging from thigh -->
+                                    <path d="M 127 155 Q 134 165 130 175" stroke="var(--accent-primary)"
+                                        stroke-width="1.5" stroke-linecap="round" fill="none" />
+                                    <!-- Sneaker -->
+                                    <path
+                                        d="M 136 201 L 152 205 C 155 206 156 211 152 213 L 133 211 C 131 207 132 203 136 201 Z"
+                                        fill="#ffffff" />
+                                    <path d="M 132 210 L 152 213" stroke="var(--accent-primary)" stroke-width="3"
+                                        stroke-linecap="round" />
+                                    <path d="M 140 203 L 146 208" stroke="#1b1f2b" stroke-width="1.5"
+                                        stroke-linecap="round" />
+                                </g>
+
+                                <!-- Front leg (thick cargo jeans & sneaker, bent forward) -->
+                                <g id="boy-leg-front" style="transform-origin: 100px 140px;">
+                                    <path d="M 108 140 L 85 170 L 98 208 L 107 208 L 94 175 L 116 140 Z"
+                                        fill="#151821" />
+                                    <path d="M 105 140 L 85 170 L 98 208" stroke="#1e222b" stroke-width="11"
+                                        stroke-linecap="round" fill="none" />
+                                    <path d="M 103 140 L 86 169 L 98 205" stroke="var(--accent-primary)"
+                                        stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.8" />
+                                    <!-- Cargo Pocket Detail -->
+                                    <polygon points="90,162 98,165 96,175 88,172" fill="#2d323f" stroke="#1e222b"
+                                        stroke-width="1" />
+                                    <!-- Sneaker -->
+                                    <path
+                                        d="M 92 203 L 108 206 C 111 207 112 212 108 214 L 89 212 C 87 208 88 204 92 203 Z"
+                                        fill="#ffffff" />
+                                    <path d="M 88 211 L 108 214" stroke="var(--accent-primary)" stroke-width="3.5"
+                                        stroke-linecap="round" />
+                                    <path d="M 96 205 L 102 210" stroke="#1e222b" stroke-width="1.5"
+                                        stroke-linecap="round" />
+                                </g>
+
+                                <!-- Upper Body (leans back from hips during pull phase) -->
+                                <g id="boy-upper-body" style="transform-origin: 115px 140px;">
+                                    <!-- Torso (leaning back hoodie with details) -->
+                                    <path d="M 115 140 C 110 115 118 95 133 85" stroke="#10121a" stroke-width="25"
+                                        stroke-linecap="round" fill="none" />
+                                    <path id="boy-torso" d="M 115 140 C 112 120 120 95 135 85" stroke="#1e222b"
+                                        stroke-width="20" stroke-linecap="round" fill="none" />
+                                    <path d="M 115 138 C 112 121 119 97 133 87" stroke="#2a2f3d" stroke-width="14"
+                                        stroke-linecap="round" fill="none" />
+                                    <!-- Cyber Hoodie central zipper/glowing stripe -->
+                                    <path d="M 113 135 C 111 123 118 102 131 88" stroke="var(--accent-primary)"
+                                        stroke-width="2" stroke-linecap="round" fill="none" />
+                                    <!-- Hoodie Hood (hanging back) -->
+                                    <path d="M 126 86 C 120 80 122 68 132 68 C 142 68 140 80 134 85 Z" fill="#151821"
+                                        stroke="#2d323f" stroke-width="1.5" />
+
+                                    <g id="boy-head-group">
+                                        <!-- Skin/Face Base -->
+                                        <circle id="boy-head" cx="138" cy="62" r="14" fill="#0c0f17"
+                                            stroke="var(--accent-primary)" stroke-width="2.5" />
+                                        <!-- Visor / Cool Glasses -->
+                                        <path d="M 135 58 Q 146 59 149 61 L 147 67 Q 139 65 134 63 Z"
+                                            fill="var(--accent-primary)" opacity="0.95" />
+                                        <path d="M 135 58 Q 146 59 149 61" stroke="#ffffff" stroke-width="1.2"
+                                            fill="none" />
+                                        <!-- Hair: Detailed spikes pointing front and up (stylized digital artist hair) -->
+                                        <path
+                                            d="M 126 58 Q 133 46 142 48 Q 147 50 149 55 Q 152 47 146 44 Q 138 43 128 50 Z"
+                                            fill="#ffffff" />
+                                        <!-- Backward Cap visor detail -->
+                                        <path d="M 128 56 Q 138 46 148 56" stroke="var(--accent-primary)"
+                                            stroke-width="2" fill="none" />
+                                        <path d="M 148 56 L 155 58" stroke="var(--accent-primary)" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <!-- Tech Collar/Neck details -->
+                                        <path d="M 130 76 Q 138 78 142 74" stroke="rgba(255,255,255,0.4)"
+                                            stroke-width="3" stroke-linecap="round" fill="none" />
+                                    </g>
+
+                                    <!-- Arms (grabs the rope and pulls down) -->
+                                    <g id="boy-arms" style="transform-origin: 132px 88px;">
+                                        <!-- Left Arm (background arm) -->
+                                        <path id="boy-arm-left" d="M 128 90 C 110 92 90 90 65 80" stroke="#151821"
+                                            stroke-width="10" stroke-linecap="round" fill="none" />
+                                        <path d="M 128 90 C 110 92 90 90 65 80" stroke="#252936" stroke-width="7"
+                                            stroke-linecap="round" fill="none" />
+                                        <!-- Left Glove -->
+                                        <circle cx="65" cy="80" r="4.5" fill="#ffffff" stroke="#151821"
+                                            stroke-width="1" />
+
+                                        <!-- Right Arm (foreground arm) -->
+                                        <!-- Arm shadow -->
+                                        <path d="M 132 88 C 112 85 92 78 70 70" stroke="#101217" stroke-width="13"
+                                            stroke-linecap="round" fill="none" />
+                                        <!-- Arm main sleeve -->
+                                        <path id="boy-arm-right" d="M 132 88 C 112 85 92 78 70 70" stroke="#1e222b"
+                                            stroke-width="10" stroke-linecap="round" fill="none" />
+                                        <!-- Neon stripe on sleeve -->
+                                        <path d="M 132 88 C 112 85 92 78 70 70" stroke="var(--accent-primary)"
+                                            stroke-width="2.5" stroke-linecap="round" fill="none" />
+                                        <!-- Right Glove (cool glove detail) -->
+                                        <circle cx="70" cy="70" r="6" fill="#1e222b" stroke="var(--accent-primary)"
+                                            stroke-width="1.5" />
+                                        <circle id="boy-hand-anchor" cx="70" cy="70" r="4.5" fill="#ffffff"
+                                            stroke="#1e222b" stroke-width="2.5" />
+                                    </g>
+                                </g>
+                            </g>
                         </svg>
-                    </button>
-                </form>
-
-                <!-- Contact Info Panel -->
-                <div class="contact-info">
-                    <div class="contact-info-item" id="ci-email">
-                        <div class="ci-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                <polyline points="22,6 12,13 2,6" />
-                            </svg>
-                        </div>
-                        <div class="ci-text">
-                            <span class="ci-label">Email</span>
-                            <span class="ci-value"><a href="mailto:hello@akashbhardwaj.dev"
-                                    style="color: inherit; text-decoration: none;">hello@akashbhardwaj.dev</a></span>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" id="ci-location">
-                        <div class="ci-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                <circle cx="12" cy="10" r="3" />
-                            </svg>
-                        </div>
-                        <div class="ci-text">
-                            <span class="ci-label">Location</span>
-                            <span class="ci-value">India (Available for remote projects worldwide)</span>
-                        </div>
-                    </div>
-                    <div class="contact-info-item" id="ci-availability">
-                        <div class="ci-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                                <circle cx="12" cy="12" r="10" />
-                                <polyline points="12 6 12 12 16 14" />
-                            </svg>
-                        </div>
-                        <div class="ci-text">
-                            <span class="ci-label">Availability</span>
-                            <span class="ci-value">Monday – Saturday, 10:00 AM – 7:00 PM (IST)</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-social">
-                        <a href="#" class="contact-social-link" id="cs-fb" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M9.101 23.69h4.837v-11.23h3.239l.486-4.086h-3.725v-2.61c0-1.182.329-1.988 2.023-1.988h2.159V.228C17.37.177 15.65 0 13.639 0 9.451 0 6.57 2.557 6.57 7.247v3.359H3v4.086h3.57v11h2.531z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="contact-social-link" id="cs-tw" aria-label="Twitter">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="contact-social-link" id="cs-li" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="contact-social-link" id="cs-ig" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-                            </svg>
-                        </a>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <!-- Footer — Big Name -->
+            <!-- Footer — Big Name -->
 
     </section>
     <footer class="site-footer" id="site-footer">
