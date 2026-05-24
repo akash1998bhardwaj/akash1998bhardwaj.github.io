@@ -41,7 +41,39 @@
 
     <!-- Header Navigation -->
     <header class="work-header">
-        <a href="index.html" class="logo" id="header-logo-link">AKASH</a>
+        <a href="index.html" class="logo" id="header-logo-link">
+            <!-- Custom Prism Monogram (SVG) -->
+            <svg class="logo-svg" width="28" height="28" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g class="logo-icon-group">
+                    <!-- Left stem (green to blue gradient) -->
+                    <path d="M14 2L5 24H11L14 16H17L14 2Z" fill="url(#logo-grad-1)" class="logo-icon-part-1" />
+                    <!-- Right stem (cyan to purple gradient with screen blend mode overlay) -->
+                    <path d="M14 2L23 24H17L14 16H11L14 2Z" fill="url(#logo-grad-2)" class="logo-icon-part-2"
+                        style="mix-blend-mode: screen; opacity: 0.85;" />
+                    <!-- Floating neon crossbar -->
+                    <path d="M10 16H18" stroke="#00ffaa" stroke-width="2" stroke-linecap="round"
+                        class="logo-icon-crossbar" />
+                    <!-- Accent focus dot -->
+                    <circle cx="14" cy="9" r="1.5" fill="#ffffff" class="logo-icon-dot" />
+                </g>
+                <defs>
+                    <linearGradient id="logo-grad-1" x1="5" y1="2" x2="17" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00ffaa" />
+                        <stop offset="1" stop-color="#0088ff" />
+                    </linearGradient>
+                    <linearGradient id="logo-grad-2" x1="23" y1="2" x2="11" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00e5ff" />
+                        <stop offset="1" stop-color="#9900ff" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <!-- Typographic Layout (HTML/CSS) -->
+            <span class="logo-text-wrap">
+                <span class="logo-text">AKASH</span>
+                <span class="logo-subtext">STUDIO</span>
+            </span>
+        </a>
 
         <a href="index.html" class="contact-btn" id="back-home-btn">
             <span class="contact-icon"

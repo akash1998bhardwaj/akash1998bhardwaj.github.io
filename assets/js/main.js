@@ -1572,6 +1572,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ----------------------------------------------------
+    // 23. Timeline Item Scroll Animation
+    // ----------------------------------------------------
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        // Set perspective on the container so the 3D transforms pop
+        gsap.set('.education-timeline', { perspective: 1500 });
+        
+        gsap.utils.toArray('.edu-item').forEach((item) => {
+            gsap.fromTo(item, 
+                { 
+                    y: 120, 
+                    opacity: 0, 
+                    rotationX: 45, 
+                    rotationY: 15,
+                    skewX: -5,
+                    scale: 0.9
+                },
+                {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 0,
+                    opacity: 1,
+                    rotationX: 0, 
+                    rotationY: 0,
+                    skewX: 0,
+                    scale: 1,
+                    duration: 1.2,
+                    ease: "power4.out"
+                }
+            );
+        });
+    }
+
     // Window size adjustment
     window.addEventListener('resize', drawRope);
     // Draw rope after DOM elements are laid out

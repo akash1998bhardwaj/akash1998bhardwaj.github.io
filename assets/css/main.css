@@ -2669,64 +2669,18 @@ header.scrolled::before {
     max-width: 800px;
 }
 
-/* Track Wrapper for click-and-drag scroll */
-.process-track-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-/* Horizontal Timeline Progress */
-.process-timeline-container {
-    position: absolute;
-    top: 70px;
-    left: 180px;
-    right: 180px;
-    height: 2px;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.process-timeline-line {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.process-timeline-progress {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
-    box-shadow: 0 0 12px var(--accent-glow);
-    transition: width 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* The actual scrollable element */
-.process-track {
-    display: flex;
+/* Process Grid Container */
+.process-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    /* Hide standard Firefox scrollbar */
-    padding: 30px 10px 40px 10px;
-    cursor: none;
-    /* Hide cursor inside track since custom cursor changes to drag */
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-}
-
-.process-track::-webkit-scrollbar {
-    display: none;
-    /* Hide standard Chrome/Safari scrollbar */
+    width: 100%;
+    margin-top: 20px;
 }
 
 /* Process Cards */
 .process-card {
-    flex: 0 0 380px;
-    width: 380px;
+    width: 100%;
     height: 480px;
     border-radius: 24px;
     background-color: var(--card-bg);
@@ -2748,13 +2702,40 @@ header.scrolled::before {
         box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     scroll-snap-align: start;
     z-index: 2;
+    transform-style: preserve-3d;
 }
 
 .process-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: rgba(0, 255, 170, 0.45);
-    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 255, 170, 0.06);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.1s ease;
+    transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateZ(10px) translateY(-10px);
+    border-color: rgba(0, 255, 170, 0.5);
+    box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 255, 170, 0.1);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Water Hover Effect */
+.water-effect {
+    position: absolute;
+    bottom: -150%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(0deg, rgba(0, 255, 170, 0.2) 0%, rgba(0, 229, 255, 0.05) 100%);
+    border-radius: 40%;
+    transition: bottom 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+    z-index: 0;
+    animation: waterWave 6s infinite linear;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.process-card:hover .water-effect {
+    bottom: -80%;
+    opacity: 1;
+}
+
+@keyframes waterWave {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Spotlight Hover Effect */
@@ -3746,6 +3727,14 @@ header.scrolled::before {
 
     .pulley-character-area {
         height: 210px !important;
+    }
+}
+
+/* Pulley Mount Responsive Adjustments */
+@media (max-width: 1024px) {
+    .pulley-mount {
+        left: 50% !important;
+        top: -45px !important;
     }
 }
 
@@ -5877,5 +5866,365 @@ header.scrolled::before {
 @media (max-width: 480px) {
     .work-card-h {
         height: 380px;
+    }
+}
+
+/* ====================================================
+   Figma Infographic Section
+   ==================================================== */
+.figma-infographic-section {
+    padding: 100px 5%;
+    background: linear-gradient(135deg, #0a0c11 0%, #101217 100%);
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+.figma-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1150px;
+    margin: 0 auto;
+    align-items: center;
+    padding-left: 5vw;
+}
+
+.figma-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(20, 24, 33, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.figma-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.figma-stat-item {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--accent-primary);
+    padding-left: 15px;
+}
+
+.figma-stat-val {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.work-card-h-tags span {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    background: rgba(0, 255, 170, 0.07);
+    border: 1px solid rgba(0, 255, 170, 0.2);
+    border-radius: 30px;
+    padding: 4px 12px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.work-card-h:hover .work-card-h-tags span {
+    background: rgba(0, 255, 170, 0.12);
+    border-color: rgba(0, 255, 170, 0.4);
+}
+
+/* Arrow Icon */
+.work-card-h-arrow {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateZ(40px);
+}
+
+.work-card-h:hover .work-card-h-arrow {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(0, 255, 170, 0.08);
+    transform: translateZ(40px) scale(1.1);
+    box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* CTA below slider */
+.works-cta-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 6vw 60px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Decorative elements */
+.deco-line-works-h {
+    position: absolute;
+    bottom: 0;
+    left: 6vw;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+    opacity: 0.15;
+}
+
+.sparkles-works-h {
+    position: absolute;
+    bottom: 20px;
+    right: 4vw;
+    display: flex;
+    gap: 8px;
+}
+
+.sparkles-works-h .sparkle-icon {
+    width: 10px;
+    height: 10px;
+    color: var(--accent-primary);
+    opacity: 0.3;
+    animation: sparkleFloat 3s infinite ease-in-out;
+}
+
+.sparkles-works-h .sparkle-icon:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.sparkles-works-h .sparkle-icon:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+/* Responsive Grid/Swiper adjustments */
+@media (max-width: 900px) {
+    .works-section {
+        padding: 60px 0 80px;
+    }
+
+    .works-swiper {
+        padding: 30px 0 50px;
+    }
+
+    .works-swiper .swiper-slide {
+        width: 480px;
+    }
+
+    .work-card-h {
+        height: 380px;
+    }
+
+    .works-header-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .works-swiper .swiper-slide {
+        width: 85vw;
+    }
+
+    .work-card-h {
+        height: 420px;
+    }
+
+    .work-card-h-content {
+        padding: 24px;
+    }
+
+    .work-card-h-arrow {
+        top: 24px;
+        right: 24px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .work-card-h {
+        height: 380px;
+    }
+}
+
+/* ====================================================
+   Figma Infographic Section
+   ==================================================== */
+.figma-infographic-section {
+    padding: 100px 5%;
+    background: linear-gradient(135deg, #0a0c11 0%, #101217 100%);
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+.figma-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1150px;
+    margin: 0 auto;
+    align-items: center;
+    padding-left: 5vw;
+}
+
+.figma-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(20, 24, 33, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.figma-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.figma-stat-item {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--accent-primary);
+    padding-left: 15px;
+}
+
+.figma-stat-val {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+}
+
+.figma-stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.figma-visual {
+    position: relative;
+    height: 550px;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.figma-cube-wrapper {
+    width: 260px;
+    height: 360px;
+    perspective: 1200px;
+    position: relative;
+    z-index: 10;
+}
+
+.figma-cube {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotateCube 20s infinite linear;
+}
+
+.figma-face {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    border: 1px solid rgba(0, 255, 170, 0.4);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 255, 170, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(10, 15, 13, 0.9);
+}
+
+.figma-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.figma-face:hover img {
+    opacity: 1;
+}
+
+/* 3D Positioning for Rectangular Prism */
+.figma-front  { transform: rotateY(0deg) translateZ(130px); }
+.figma-back   { transform: rotateY(180deg) translateZ(130px); }
+.figma-right  { transform: rotateY(90deg) translateZ(130px); }
+.figma-left   { transform: rotateY(-90deg) translateZ(130px); }
+.figma-top    { 
+    height: 260px; 
+    top: 50px; 
+    transform: rotateX(90deg) translateZ(180px); 
+}
+.figma-bottom { 
+    height: 260px; 
+    top: 50px; 
+    transform: rotateX(-90deg) translateZ(180px); 
+}
+
+@keyframes rotateCube {
+    0% { transform: rotateX(-15deg) rotateY(0deg); }
+    100% { transform: rotateX(-15deg) rotateY(360deg); }
+}
+
+.figma-bg-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0,255,170,0.1) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    animation: pulseGlow 4s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
+
+@media (max-width: 992px) {
+    .figma-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding-left: 0;
+    }
+    .figma-visual {
+        height: 400px !important;
+    }
+    .figma-content {
+        padding: 25px;
     }
 }
