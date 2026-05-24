@@ -1472,7 +1472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             L ${plx} ${ply}
             A ${pulleyRadius} ${pulleyRadius} 0 0 1 ${prx} ${pry}
             L ${hx} ${hy}
-            Q ${hx + 12} ${hy + 45} ${hx - 8} ${hy + 110}
+            Q ${hx + 8} ${hy + 20} ${hx - 5} ${hy + 40}
         `;
         ropePath.setAttribute('d', pathData.trim().replace(/\s+/g, ' '));
     }
