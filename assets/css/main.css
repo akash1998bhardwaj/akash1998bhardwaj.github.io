@@ -3521,16 +3521,16 @@ header.scrolled::before {
         padding-top: 40px;
         padding-bottom: 40px;
     }
-    
+
     .contact-info {
         gap: 12px !important;
         padding-bottom: 0 !important;
     }
-    
+
     .contact-info-item {
         padding: 12px 18px !important;
     }
-    
+
     .pulley-character-area {
         height: 210px !important;
     }
@@ -4614,6 +4614,7 @@ header.scrolled::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 30%;
 }
 
 .profile-name {
@@ -5291,8 +5292,10 @@ header.scrolled::before {
     padding: 100px 0 120px;
     background: transparent;
     overflow: hidden;
-    display: block !important; /* Override flex layout defined elsewhere */
-    min-height: auto !important; /* Override full-viewport min-height */
+    display: block !important;
+    /* Override flex layout defined elsewhere */
+    min-height: auto !important;
+    /* Override full-viewport min-height */
 }
 
 /* Header inside works section */
@@ -5377,7 +5380,7 @@ header.scrolled::before {
     left: 0;
     width: 100%;
     height: 2px;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
     z-index: 10;
 }
 
@@ -5393,7 +5396,8 @@ header.scrolled::before {
 .works-swiper {
     width: 100%;
     padding: 60px 0 80px;
-    overflow: visible !important; /* Essential for 3D depth card rotations */
+    overflow: visible !important;
+    /* Essential for 3D depth card rotations */
     perspective: 1600px;
 }
 
@@ -5448,24 +5452,20 @@ header.scrolled::before {
 .work-card-h-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(6,9,8,0.98) 0%,
-        rgba(6,9,8,0.65) 45%,
-        rgba(6,9,8,0.15) 75%,
-        transparent 100%
-    );
+    background: linear-gradient(to top,
+            rgba(6, 9, 8, 0.98) 0%,
+            rgba(6, 9, 8, 0.65) 45%,
+            rgba(6, 9, 8, 0.15) 75%,
+            transparent 100%);
     transition: background 0.4s ease;
 }
 
 .work-card-h:hover .work-card-h-overlay {
-    background: linear-gradient(
-        to top,
-        rgba(6,9,8,1) 0%,
-        rgba(6,9,8,0.75) 50%,
-        rgba(6,9,8,0.2) 80%,
-        transparent 100%
-    );
+    background: linear-gradient(to top,
+            rgba(6, 9, 8, 1) 0%,
+            rgba(6, 9, 8, 0.75) 50%,
+            rgba(6, 9, 8, 0.2) 80%,
+            transparent 100%);
 }
 
 /* Card Content */
@@ -5479,7 +5479,8 @@ header.scrolled::before {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transform: translateZ(50px); /* Pushes content out in 3D space */
+    transform: translateZ(50px);
+    /* Pushes content out in 3D space */
 }
 
 /* Project Number */
@@ -5552,20 +5553,20 @@ header.scrolled::before {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255,255,255,0.5);
-    transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
-    background: rgba(255,255,255,0.04);
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: rgba(255, 255, 255, 0.04);
     transform: translateZ(40px);
 }
 
 .work-card-h:hover .work-card-h-arrow {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
-    background: rgba(0,255,170,0.08);
+    background: rgba(0, 255, 170, 0.08);
     transform: translateZ(40px) scale(1.1);
     box-shadow: 0 0 16px var(--accent-glow);
 }
@@ -5606,8 +5607,13 @@ header.scrolled::before {
     animation: sparkleFloat 3s infinite ease-in-out;
 }
 
-.sparkles-works-h .sparkle-icon:nth-child(2) { animation-delay: 0.4s; }
-.sparkles-works-h .sparkle-icon:nth-child(3) { animation-delay: 0.8s; }
+.sparkles-works-h .sparkle-icon:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.sparkles-works-h .sparkle-icon:nth-child(3) {
+    animation-delay: 0.8s;
+}
 
 /* Responsive Grid/Swiper adjustments */
 @media (max-width: 900px) {
@@ -5659,4 +5665,4 @@ header.scrolled::before {
     .work-card-h {
         height: 380px;
     }
-}
+}
