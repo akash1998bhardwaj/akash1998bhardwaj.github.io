@@ -5281,3 +5281,382 @@ header.scrolled::before {
         padding: 20px 0;
     }
 }
+
+/* ============================================
+   SWIPER 3D BOX SLIDER WORKS SECTION
+   ============================================ */
+
+.works-section {
+    position: relative;
+    padding: 100px 0 120px;
+    background: transparent;
+    overflow: hidden;
+    display: block !important; /* Override flex layout defined elsewhere */
+    min-height: auto !important; /* Override full-viewport min-height */
+}
+
+/* Header inside works section */
+.works-header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6vw 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.works-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Swiper Controls: Navigation + Counter */
+.works-controls-wrap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.swiper-nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
+    padding: 0;
+}
+
+.swiper-nav-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(0, 255, 170, 0.05);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: scale(1.08);
+}
+
+.works-counter {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.works-counter #works-current {
+    color: var(--accent-primary);
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.works-sep {
+    opacity: 0.4;
+}
+
+/* Progress bar at top of works section */
+.works-progress-bar-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    z-index: 10;
+}
+
+.works-progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Swiper Container */
+.works-swiper {
+    width: 100%;
+    padding: 60px 0 80px;
+    overflow: visible !important; /* Essential for 3D depth card rotations */
+    perspective: 1600px;
+}
+
+.works-swiper .swiper-slide {
+    width: 600px;
+    max-width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 3D Context for slides */
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: opacity 0.4s ease;
+}
+
+/* Individual Card */
+.work-card-h {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 24px;
+    overflow: hidden;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    display: block;
+    cursor: none;
+    background: #0f1219;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.work-card-h:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow);
+}
+
+/* Background Image */
+.work-card-h-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.work-card-h:hover .work-card-h-img {
+    transform: scale(1.05);
+}
+
+/* Dark gradient overlay */
+.work-card-h-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(6,9,8,0.98) 0%,
+        rgba(6,9,8,0.65) 45%,
+        rgba(6,9,8,0.15) 75%,
+        transparent 100%
+    );
+    transition: background 0.4s ease;
+}
+
+.work-card-h:hover .work-card-h-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(6,9,8,1) 0%,
+        rgba(6,9,8,0.75) 50%,
+        rgba(6,9,8,0.2) 80%,
+        transparent 100%
+    );
+}
+
+/* Card Content */
+.work-card-h-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transform: translateZ(50px); /* Pushes content out in 3D space */
+}
+
+/* Project Number */
+.work-card-h-num {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-primary);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.work-card-h-content h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.work-card-h:hover .work-card-h-content h3 {
+    color: var(--accent-primary);
+}
+
+.work-card-h-content p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+/* Tags */
+.work-card-h-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.work-card-h-tags span {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    background: rgba(0, 255, 170, 0.07);
+    border: 1px solid rgba(0, 255, 170, 0.2);
+    border-radius: 30px;
+    padding: 4px 12px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.work-card-h:hover .work-card-h-tags span {
+    background: rgba(0, 255, 170, 0.12);
+    border-color: rgba(0, 255, 170, 0.4);
+}
+
+/* Arrow Icon */
+.work-card-h-arrow {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
+    background: rgba(255,255,255,0.04);
+    transform: translateZ(40px);
+}
+
+.work-card-h:hover .work-card-h-arrow {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(0,255,170,0.08);
+    transform: translateZ(40px) scale(1.1);
+    box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* CTA below slider */
+.works-cta-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 6vw 60px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Decorative elements */
+.deco-line-works-h {
+    position: absolute;
+    bottom: 0;
+    left: 6vw;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+    opacity: 0.15;
+}
+
+.sparkles-works-h {
+    position: absolute;
+    bottom: 20px;
+    right: 4vw;
+    display: flex;
+    gap: 8px;
+}
+
+.sparkles-works-h .sparkle-icon {
+    width: 10px;
+    height: 10px;
+    color: var(--accent-primary);
+    opacity: 0.3;
+    animation: sparkleFloat 3s infinite ease-in-out;
+}
+
+.sparkles-works-h .sparkle-icon:nth-child(2) { animation-delay: 0.4s; }
+.sparkles-works-h .sparkle-icon:nth-child(3) { animation-delay: 0.8s; }
+
+/* Responsive Grid/Swiper adjustments */
+@media (max-width: 900px) {
+    .works-section {
+        padding: 60px 0 80px;
+    }
+
+    .works-swiper {
+        padding: 30px 0 50px;
+    }
+
+    .works-swiper .swiper-slide {
+        width: 480px;
+    }
+
+    .work-card-h {
+        height: 380px;
+    }
+
+    .works-header-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .works-swiper .swiper-slide {
+        width: 85vw;
+    }
+
+    .work-card-h {
+        height: 420px;
+    }
+
+    .work-card-h-content {
+        padding: 24px;
+    }
+
+    .work-card-h-arrow {
+        top: 24px;
+        right: 24px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .work-card-h {
+        height: 380px;
+    }
+}

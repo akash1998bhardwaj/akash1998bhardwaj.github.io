@@ -314,28 +314,172 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // 5. Scroll-triggered Alignment for Works Section
+    // 5. Swiper 3D Box Slider — Selected Works Section
     // ----------------------------------------------------
-    const worksSection = document.querySelector('.works-section');
-    if (worksSection) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '-5% 0px -5% 0px', // Slight margin offset to prevent sudden snapping at edge of screen
-            threshold: 0.15 // Trigger when 15% of the section is visible in viewport
-        };
+    (function initWorksSwiper() {
+        const swiperContainer = document.querySelector('.works-swiper');
+        if (!swiperContainer) return;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    worksSection.classList.add('aligned');
+        const currentCounter = document.getElementById('works-current');
+        const totalCounter = document.getElementById('works-total');
+        const fillBar = document.getElementById('works-progress-fill');
+
+        const worksSwiper = new Swiper('.works-swiper', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            loop: true,
+            speed: 800,
+            grabCursor: true,
+            watchSlidesProgress: true,
+            navigation: {
+                nextEl: '#works-next-btn',
+                prevEl: '#works-prev-btn',
+            },
+            on: {
+                init: function () {
+                    updateCounter(this);
+                    updateProgress(this);
+                    animateSlides3D(this);
+                },
+                slideChange: function () {
+                    updateCounter(this);
+                    updateProgress(this);
+                },
+                progress: function () {
+                    animateSlides3D(this);
+                },
+                setTransition: function (speed) {
+                    const swiper = this;
+                    swiper.slides.forEach(slide => {
+                        gsap.to(slide, {
+                            duration: speed / 1000,
+                            ease: "power2.out"
+                        });
+                        const card = slide.querySelector('.work-card-h');
+                        if (card) {
+                            gsap.to(card, {
+                                duration: speed / 1000,
+                                ease: "power2.out"
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+        // 3D Box/Rotate slide transition logic
+        function animateSlides3D(swiper) {
+            swiper.slides.forEach(slide => {
+                const progress = slide.progress; // active slide = 0, next slide = 1, prev slide = -1
+                const absProgress = Math.abs(progress);
+                
+                let rotateY = 0;
+                let translateZ = 0;
+                let translateX = 0;
+                let scale = 1;
+                let opacity = 1;
+
+                if (progress !== 0) {
+                    rotateY = -progress * 32; // rotate Y based on progression
+                    translateZ = -absProgress * 250; // push inactive slides back
+                    translateX = progress * -40; // stack them slightly tighter
+                    scale = 1 - (absProgress * 0.12); // scale down inactive
+                    opacity = 1 - (absProgress * 0.45); // fade out inactive
+                    
+                    opacity = Math.max(0.1, Math.min(1, opacity));
+                    scale = Math.max(0.65, scale);
                 } else {
-                    worksSection.classList.remove('aligned');
+                    rotateY = 0;
+                    translateZ = 0;
+                    translateX = 0;
+                    scale = 1.02;
+                    opacity = 1;
+                }
+
+                const card = slide.querySelector('.work-card-h');
+                if (card) {
+                    gsap.to(card, {
+                        rotationY: rotateY,
+                        z: translateZ,
+                        x: translateX,
+                        scale: scale,
+                        opacity: opacity,
+                        duration: 0.1,
+                        overwrite: "auto",
+                        transformOrigin: "center center",
+                        boxShadow: progress === 0 
+                            ? "0 30px 70px rgba(0, 0, 0, 0.6), 0 0 35px var(--accent-glow)" 
+                            : "0 10px 30px rgba(0, 0, 0, 0.4)"
+                    });
                 }
             });
-        }, observerOptions);
+        }
 
-        observer.observe(worksSection);
-    }
+        function updateCounter(swiper) {
+            if (!currentCounter || !totalCounter) return;
+            const realIndex = swiper.realIndex;
+            currentCounter.textContent = String(realIndex + 1).padStart(2, '0');
+            
+            const totalCount = swiper.slides.filter(s => !s.classList.contains('swiper-slide-duplicate')).length;
+            totalCounter.textContent = String(totalCount || 6).padStart(2, '0');
+        }
+
+        function updateProgress(swiper) {
+            if (!fillBar) return;
+            const totalSlides = swiper.slides.filter(s => !s.classList.contains('swiper-slide-duplicate')).length;
+            const progress = (swiper.realIndex + 1) / totalSlides;
+            fillBar.style.width = (progress * 100) + '%';
+        }
+
+        // Custom Cursor interaction on Swiper
+        swiperContainer.addEventListener('mouseenter', () => customCursor && customCursor.classList.add('hover'));
+        swiperContainer.addEventListener('mouseleave', () => customCursor && customCursor.classList.remove('hover'));
+
+        // Custom mouse tilt on the ACTIVE slide card
+        const cards = swiperContainer.querySelectorAll('.work-card-h');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const slide = card.closest('.swiper-slide');
+                if (!slide || !slide.classList.contains('swiper-slide-active')) return;
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * 10;
+                const rotateY = -((x - centerX) / centerX) * 10;
+
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    z: 20,
+                    duration: 0.2,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const slide = card.closest('.swiper-slide');
+                if (!slide || !slide.classList.contains('swiper-slide-active')) return;
+
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    z: 0,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            });
+        });
+    })();
 
     // ----------------------------------------------------
     // 6. Services (What We Do) Accordion Toggles
