@@ -1763,15 +1763,15 @@ header.scrolled::before {
     .education-heading {
         font-size: 6vw;
     }
-    
+
     .education-timeline {
         padding-left: 25px;
     }
-    
+
     .education-timeline-line {
         left: 0px;
     }
-    
+
     .edu-marker {
         left: -15px;
         width: 30px;
@@ -1783,11 +1783,11 @@ header.scrolled::before {
         width: 14px;
         height: 14px;
     }
-    
+
     .edu-card {
         padding: 25px 20px;
     }
-    
+
     .edu-degree {
         font-size: 20px;
     }
@@ -2734,8 +2734,13 @@ header.scrolled::before {
 }
 
 @keyframes waterWave {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Spotlight Hover Effect */
@@ -3804,7 +3809,7 @@ header.scrolled::before {
     }
 
     .contact-info-item {
-        flex: 1 1 100%;
+        flex: 1;
     }
 
     .site-footer {
@@ -5395,7 +5400,7 @@ header.scrolled::before {
     }
 
     .hero-title {
-        font-size: 12vw;
+        font-size: 9vw;
     }
 
     .process-card {
@@ -5455,6 +5460,8 @@ header.scrolled::before {
     .menu-item span {
         opacity: 1;
     }
+
+
 }
 
 /* ----------------------------------------------------
@@ -5877,7 +5884,7 @@ header.scrolled::before {
     background: linear-gradient(135deg, #0a0c11 0%, #101217 100%);
     position: relative;
     z-index: 10;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
 }
 
@@ -5899,7 +5906,7 @@ header.scrolled::before {
     padding: 40px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .figma-stats {
@@ -6072,7 +6079,7 @@ header.scrolled::before {
     background: linear-gradient(135deg, #0a0c11 0%, #101217 100%);
     position: relative;
     z-index: 10;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
 }
 
@@ -6094,7 +6101,7 @@ header.scrolled::before {
     padding: 40px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .figma-stats {
@@ -6177,24 +6184,42 @@ header.scrolled::before {
 }
 
 /* 3D Positioning for Rectangular Prism */
-.figma-front  { transform: rotateY(0deg) translateZ(130px); }
-.figma-back   { transform: rotateY(180deg) translateZ(130px); }
-.figma-right  { transform: rotateY(90deg) translateZ(130px); }
-.figma-left   { transform: rotateY(-90deg) translateZ(130px); }
-.figma-top    { 
-    height: 260px; 
-    top: 50px; 
-    transform: rotateX(90deg) translateZ(180px); 
+.figma-front {
+    transform: rotateY(0deg) translateZ(130px);
 }
-.figma-bottom { 
-    height: 260px; 
-    top: 50px; 
-    transform: rotateX(-90deg) translateZ(180px); 
+
+.figma-back {
+    transform: rotateY(180deg) translateZ(130px);
+}
+
+.figma-right {
+    transform: rotateY(90deg) translateZ(130px);
+}
+
+.figma-left {
+    transform: rotateY(-90deg) translateZ(130px);
+}
+
+.figma-top {
+    height: 260px;
+    top: 50px;
+    transform: rotateX(90deg) translateZ(180px);
+}
+
+.figma-bottom {
+    height: 260px;
+    top: 50px;
+    transform: rotateX(-90deg) translateZ(180px);
 }
 
 @keyframes rotateCube {
-    0% { transform: rotateX(-15deg) rotateY(0deg); }
-    100% { transform: rotateX(-15deg) rotateY(360deg); }
+    0% {
+        transform: rotateX(-15deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(-15deg) rotateY(360deg);
+    }
 }
 
 .figma-bg-glow {
@@ -6203,7 +6228,7 @@ header.scrolled::before {
     left: 50%;
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, rgba(0,255,170,0.1) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(0, 255, 170, 0.1) 0%, transparent 60%);
     transform: translate(-50%, -50%);
     z-index: 0;
     pointer-events: none;
@@ -6211,8 +6236,15 @@ header.scrolled::before {
 }
 
 @keyframes pulseGlow {
-    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
 }
 
 @media (max-width: 992px) {
@@ -6221,10 +6253,54 @@ header.scrolled::before {
         gap: 40px;
         padding-left: 0;
     }
+
     .figma-visual {
         height: 400px !important;
     }
+
     .figma-content {
         padding: 25px;
     }
+}
+
+@media(max-width:576px) {
+    .works-heading {
+        font-family: var(--font-heading);
+        font-size: clamp(22px, 5vw, 72px) !important;
+    }
+
+    .work-card-h-content h3 {
+        font-family: var(--font-heading);
+        font-size: clamp(14px, 3vw, 36px);
+    }
+
+    .process-grid-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .whowith-heading span {
+        font-size: 8vw !important;
+    }
+
+    .faq-heading {
+        font-size: 5vw;
+    }
+
+    .testimonials-heading {
+        font-size: 5vw;
+    }
+
+    .testi-title {
+        font-size: 13px;
+    }
+
+    .testimonials-section {
+        padding: 64px 6vw 0px 6vw;
+    }
+
+    .contact-heading {
+        font-size: 5vw;
+    }
+
 }
