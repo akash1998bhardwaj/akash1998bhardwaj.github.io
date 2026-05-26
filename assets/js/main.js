@@ -811,8 +811,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4500);
         }
 
-        // ── Submit handler (jQuery $.ajax) ───────────────
-        $(contactForm).on('submit', function (e) {
+        // ── Submit handler (Web3Forms fetch) ───────────────
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const submitBtn = contactForm.querySelector('#contact-submit-btn');
@@ -826,32 +826,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (btnSpan) btnSpan.textContent = 'Sending...';
 
-            $.ajax({
-                type: 'POST',
-                url: 'php/contact-form.php',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.success) {
-                        showToast('Message Sent Successfully!', true);
-                        contactForm.reset();
-                    } else {
-                        showToast(data.message || 'Something went wrong. Please try again.', false);
-                    }
-                },
-                error: function (xhr, status, err) {
-                    console.error('[Contact Form] AJAX error:', status, err);
-                    console.error('[Contact Form] Response:', xhr.responseText);
-                    showToast('Network error. Please try again later.', false);
-                },
-                complete: function () {
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.style.opacity = '1';
-                    }
-                    if (btnSpan) btnSpan.textContent = originalTxt;
+            const formData = new FormData(contactForm);
+            formData.append("access_key", "26396382-c273-489d-926a-eaa5ad8070d5");
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                const data = await response.json();
+
+                if (response.ok) {
+                    showToast('Message Sent Successfully!', true);
+                    contactForm.reset();
+                } else {
+                    showToast(data.message || 'Something went wrong. Please try again.', false);
                 }
-            });
+            } catch (error) {
+                console.error('[Contact Form] Fetch error:', error);
+                showToast('Network error. Please try again later.', false);
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                }
+                if (btnSpan) btnSpan.textContent = originalTxt;
+            }
         });
     }
 
